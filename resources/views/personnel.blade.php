@@ -1,9 +1,15 @@
+
 @extends('layouts/menu')
 
-@section('dashboard')
+
+@section('personnel')
     style="background-color: rgb(219, 219, 219)"
 @endsection
-
 @section('content')
-    @include('layouts/dashboard')
+    @include("layouts.personnelLayout")
 @endsection
+
+
+
+
+

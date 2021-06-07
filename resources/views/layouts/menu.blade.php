@@ -10,22 +10,22 @@
         <title>Startmin - Bootstrap Admin Theme</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
 
         <!-- MetisMenu CSS -->
-        <link href="{{ asset('css/metisMenu.min.css') }}" rel="stylesheet">
+        <link href="../css/metisMenu.min.css" rel="stylesheet">
 
-        <!-- Timeline CSS -->
-        <link href="{{ asset('css/timeline.css') }}" rel="stylesheet">
+        <!-- DataTables CSS -->
+        <link href="../css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+        <!-- DataTables Responsive CSS -->
+        <link href="../css/dataTables/dataTables.responsive.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="{{ asset('css/startmin.css') }}" rel="stylesheet">
-
-        <!-- Morris Charts CSS -->
-        <link href="{{ asset('css/morris.css') }}" rel="stylesheet">
+        <link href="../css/startmin.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
-        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,12 +34,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body style="background-color: white">
 
         <div id="wrapper">
 
             <!-- Navigation -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgb(219, 219, 219); border: 1px solid rgb(219, 219, 219);" role="navigation">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="border: 0px solid black; background-color: rgba(253, 253, 253, 1); box-shadow: 3px 3px 5px -5px rgba(112, 104, 104, 0.58);" >
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">Startmin</a>
                 </div>
@@ -55,7 +55,7 @@
                     <li><a href="#"><i class="fa fa-home fa-fw"></i> Website</a></li>
                 </ul>
 
-                <ul class="nav navbar-right navbar-top-links">
+                <ul class="nav navbar-right navbar-top-links" >
                     <li class="dropdown navbar-inverse">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-bell fa-fw"></i> <b class="caret"></b>
@@ -127,7 +127,8 @@
                 </ul>
                 <!-- /.navbar-top-links -->
 
-                <div class="navbar-default sidebar" role="navigation">
+                <div class="navbar-default sidebar" role="navigation" style="height: 700px; box-shadow: 2px 2px 5px -5px rgba(112, 104, 104, 0.58); background-color: rgba(253, 253, 253, 0.863);
+" >
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li class="sidebar-search">
@@ -141,15 +142,52 @@
                                 </div>
                                 <!-- /input-group -->
                             </li>
-                            <li>
-                                <a href="index.html" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <li @yield('dashboard')>
+                                <a href="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+
+                            <li @yield('personnel')>
+                                <a href="personnel"><i class="fa fa-dashboard fa-fw"></i> Personnels</a>
+                            </li>
+                            <li @yield('document')>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Documents personnel<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li>
-                                        <a href="flot.html">Flot Charts</a>
+                                    <li @yield('document')>
+                                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Certificats<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li>
+                                                <a href="flot.html">Prise de service</a>
+                                            </li>
+                                            <li>
+                                                <a href="morris.html">Cessation de service</a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
                                     </li>
+
+                                    <li>
+                                        <a href="morris.html">Morris.js Charts</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+
+                            <li @yield('fiche')>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Fiches<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li @yield('document')>
+                                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Certificats<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li>
+                                                <a href="flot.html">Prise de service</a>
+                                            </li>
+                                            <li>
+                                                <a href="morris.html">Cessation de service</a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
+                                    </li>
+
                                     <li>
                                         <a href="morris.html">Morris.js Charts</a>
                                     </li>
@@ -230,7 +268,9 @@
                             </li>
                         </ul>
                     </div>
+                    <!-- /.sidebar-collapse -->
                 </div>
+                <!-- /.navbar-static-side -->
             </nav>
 
             @yield('content')
@@ -238,23 +278,30 @@
 
         </div>
         <!-- /#wrapper -->
-
         <!-- jQuery -->
-        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="../js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JavaScript -->
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="../js/bootstrap.min.js"></script>
 
         <!-- Metis Menu Plugin JavaScript -->
-        <script src="{{ asset('js/metisMenu.min.js') }}"></script>
+        <script src="../js/metisMenu.min.js"></script>
 
-        <!-- Morris Charts JavaScript -->
-        <script src="{{ asset('js/raphael.min.js') }}"></script>
-        <script src="{{ asset('js/morris.min.js') }}"></script>
-        <script src="{{ asset('js/morris-data.js') }}"></script>
+        <!-- DataTables JavaScript -->
+        <script src="../js/dataTables/jquery.dataTables.min.js"></script>
+        <script src="../js/dataTables/dataTables.bootstrap.min.js"></script>
 
         <!-- Custom Theme JavaScript -->
-        <script src="{{ asset('js/startmin.js') }}"></script>
+        <script src="../js/startmin.js"></script>
+
+        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+        <script>
+            $(document).ready(function() {
+                $('#dataTables-example').DataTable({
+                        responsive: true
+                });
+            });
+        </script>
 
     </body>
 </html>

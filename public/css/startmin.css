@@ -62,7 +62,6 @@ body {
 
 .navbar-top-links>li>a:hover, .navbar-top-links>li>a:focus, .navbar-top-links>.open>a, .navbar-top-links>.open>a:hover, .navbar-top-links>.open>a:focus {
     color: #fff;
-    background-color: rgb(9, 2, 117);
 }
 
 .navbar-top-links .dropdown-menu li {
@@ -116,12 +115,10 @@ body {
 }
 
 .sidebar ul li {
-    border-bottom: 1px solid #e7e7e7;
+    border-bottom: 1px solid #eeeeee;
 }
 
-.sidebar ul li a.active {
-    background-color: #eee;
-}
+
 
 .sidebar .arrow {
     float: right;
