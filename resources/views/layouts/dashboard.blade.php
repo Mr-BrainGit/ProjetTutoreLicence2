@@ -6,7 +6,15 @@
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <!-- /.row -->
+
+    <!--
+        <form method="post" action="" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <textarea class="ckeditor form-control" name="wysiwyg-editor"></textarea>
+            </div>
+        </form>
+    -->
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="panel panel-primary">

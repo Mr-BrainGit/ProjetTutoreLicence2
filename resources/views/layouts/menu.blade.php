@@ -294,12 +294,20 @@
         <!-- Custom Theme JavaScript -->
         <script src="../js/startmin.js"></script>
 
+
+
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
         <script>
             $(document).ready(function() {
                 $('#dataTables-example').DataTable({
                         responsive: true
                 });
+            });
+        </script>
+        <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.ckeditor').ckeditor();
             });
         </script>
 
