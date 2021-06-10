@@ -1,8 +1,6 @@
 @extends('layouts/menu')
 
-@section('dashboard')
-    style="background-color: rgb(219, 219, 219)"
-@endsection
+@section('dash') active @endsection
 
 @section('content')
     @include('layouts/dashboard')

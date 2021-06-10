@@ -3,7 +3,7 @@
 
 
 @section('personnel')
-    style="background-color: rgb(219, 219, 219)"
+    active
 @endsection
 @section('content')
     @include("layouts.personnelLayout")

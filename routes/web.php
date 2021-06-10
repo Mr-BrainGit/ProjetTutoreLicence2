@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PersonnelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/personnel', function () {
-    return view('personnel');
-});
+Route::resource('personnel', PersonnelController::class);
 
-Route::get('/certificat', function () {
-    return view('certificat');
-});
+
+

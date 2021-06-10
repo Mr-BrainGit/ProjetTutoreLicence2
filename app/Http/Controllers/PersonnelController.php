@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\personnelResource;
+use App\Models\CategoriePersonnel;
+use App\Models\Echellon;
+use App\Models\Fonction;
 use App\Models\Personnel;
 use Illuminate\Http\Request;
 
@@ -14,7 +18,14 @@ class PersonnelController extends Controller
      */
     public function index()
     {
-        //
+        $categories = CategoriePersonnel::all();
+        $fonctions = Fonction::all();
+        $echellons = Echellon::all();
+        $personnels = personnelResource::collection(Personnel::orderByDesc('created_at')->get())->values();
+        return view('personnel')->with('categories',$categories)
+                                ->with('fonctions',$fonctions)
+                                ->with('echellons',$echellons)
+                                ->with('personnels',$personnels);
     }
 
     /**
