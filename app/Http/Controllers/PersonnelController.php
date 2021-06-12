@@ -59,22 +59,8 @@ class PersonnelController extends Controller
             "idCategorieP" => $request->categorie,
         ]);
 
-        
+        return Redirect::route('personnel')->with('success',"Personnel mis à jour !");
 
-        $categories = CategoriePersonnel::all();
-        $fonctions = Fonction::all();
-        $echellons = Echellon::all();
-        $personnels = Personnel::orderByDesc('personnels.created_at')
-                                ->join('fonctions', 'personnels.idFonction', '=', 'fonctions.idFonction')
-                                ->join('categorie_personnels', 'personnels.idCategorieP', '=', 'categorie_personnels.idCategorieP')
-                                ->get()->values();
-
-
-        return view('personnel')->with('categories',$categories)
-                                ->with('fonctions',$fonctions)
-                                ->with('echellons',$echellons)
-                                ->with('personnels',$personnels)
-                                ->with('success',"Personnel ajouté");
     }
 
    
@@ -85,7 +71,7 @@ class PersonnelController extends Controller
      * @param  \App\Models\Personnel  $personnel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $oldMatricule = $request->Oldmatricule;
         $personnel = Personnel::where("matricule", $oldMatricule);

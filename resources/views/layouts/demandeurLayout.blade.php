@@ -53,32 +53,25 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($demandeurs as $personnel)
+                    @foreach ($demandeurs as $demandeur)
                     <tr>
-                        <td style="padding-top:17px;">{{ $personnel->nomDemandeur }}</td>
-                        <td style="padding-top:17px;">{{ $personnel->prenomDemandeur }}</td>
+                        <td style="padding-top:17px;">{{ $demandeur->nomDemandeur }}</td>
+                        <td style="padding-top:17px;">{{ $demandeur->prenomDemandeur }}</td>
                        
-                        <td style="padding-top:17px;">{{ $personnel->tel }}</td>
+                        <td style="padding-top:17px;">{{ $demandeur->tel }}</td>
                         <td>
                             <button type="button"
                                     id="edit"
                                     data-type="edit"
-                                    data-matricule="{{ $personnel->matricule }} "
-                                    data-nom="{{ $personnel->nom }}"
-                                    data-prenom="{{ $personnel->prenom }}"
-                                    data-adresse="{{ $personnel->adresse }}"
-                                    data-sexe="{{ $personnel->sexe }}"
-                                    data-fonction="{{ $personnel->idFonction }}"
-                                    data-tel="{{ $personnel->telephone }}"
-                                    data-email="{{ $personnel->email }}"
-                                    data-diplome="{{ $personnel->diplome }}"
-                                    data-categorie="{{ $personnel->idCategorieP }}"
-                                    data-echellon="{{ $personnel->idEchellon }}"
+                                    data-matricule="{{ $demandeur->matricule }} "
+                                    data-nom="{{ $demandeur->nomDemandeur }}"
+                                    data-prenom="{{ $demandeur->prenomDemandeur }}"
+                                    data-tel="{{ $demandeur->tel }}"
                                     data-toggle="modal"
                                     data-target="#personelmodal"
                                     class="btn btn-success btn-sm"><i class="fa fa-edit"></i>
                             </button>
-                            <button type="button" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            <button type="button" data-matricule="{{ $demandeur->matricule }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                         </td>
                       </tr>
                     @endforeach

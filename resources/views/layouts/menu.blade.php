@@ -197,6 +197,7 @@
                           </a>
                     </li>
                     <li class="nav-item">
+                        
                         <a href="/personnel" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
@@ -209,6 +210,14 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                               Catégories du personnel
+                            </p>
+                          </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/personnel" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                              Echellons du personnel
                             </p>
                           </a>
                     </li>
@@ -235,14 +244,34 @@
                     </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <p>
-                            <i class="far fa-circle nav-icon"></i>
-                            Maison d'hôte
-                        </p>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-copy"></i>
+                      <p>
+                        Maison d'hôte
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
                     </a>
-                </li>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <p>
+                                <i class="far fa-circle nav-icon"></i>
+                                Fiche demande <br>
+                            </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <p>
+                                <i class="far fa-circle nav-icon"></i>
+                                Occupants maison <br>
+                            </p>
+                            </a>
+                        </li>
+                      </li>
+                    </ul>
+                  </li>
                 <li class="nav-item">
                     <a href="pages/layout/top-nav.html" class="nav-link">
                         <p>
@@ -267,6 +296,14 @@
                     </p>
                   </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('demandeur') }}" class="nav-link">
+                      <p>
+                          <i class="far fa-circle nav-icon"></i>
+                          Demandeurs 
+                      </p>
+                    </a>
+                  </li>
               </li>
             </ul>
           </li>
@@ -325,20 +362,54 @@
                         </p>
                     </a>
                 </li>
+                
+              </li>
+            </ul>
+            <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="nav-icon fas fa-th nav-icon"></i>
+                  <p>Signataires</p>
+                </a>
+            </li>
+          </li>
+              
+              
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Configurations
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a href="pages/layout/top-nav.html" class="nav-link">
                     <p>
                         <i class="far fa-circle nav-icon"></i>
-                        Types de certificats <br>
+                        Types de fonction <br>
                     </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/layout/top-nav.html" class="nav-link">
+                    <p>
+                        <i class="far fa-circle nav-icon"></i>
+                        Types de certificat <br>
+                    </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/layout/top-nav.html" class="nav-link">
+                        <p>
+                            <i class="far fa-circle nav-icon"></i>
+                            Annee scolaire
+                        </p>
                     </a>
                 </li>
               </li>
             </ul>
           </li>
-              
-              
-          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

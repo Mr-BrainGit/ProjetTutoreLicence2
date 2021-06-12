@@ -24,6 +24,9 @@ Route::get('personnel', [PersonnelController::class, 'index'])->name("personnel"
 Route::post('personnel', [PersonnelController::class, 'store'])->name("personnelSave");
 Route::post('personnel/delete', [PersonnelController::class, 'destroy'])->name("personnelDelete");
 Route::post('personnel/{matricule}', [PersonnelController::class, 'update'])->name("updatePersonnel");
+
+Route::get('demandeur', [DemandeurController::class, 'index'])->name("demandeur");
+Route::post('demandeur', [DemandeurController::class, 'store'])->name("demandeur");
 Route::post('demande/{id}', [DemandeurController::class, 'update'])->name("updateDemande");
 
 
