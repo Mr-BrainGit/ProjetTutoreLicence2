@@ -14,7 +14,8 @@ class DemandeurController extends Controller
      */
     public function index()
     {
-        //
+        $demandeurs = Demandeur::all();
+        return view("demandeur")->with('demandeurs',$demandeurs);
     }
 
     /**
@@ -35,7 +36,15 @@ class DemandeurController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        Demandeur::create([
+            "nomDemandeur" => $request->nom,
+            "prenomDemandeur" => $request->prenom,
+            "tel" => $request->tel,
+        ]);
+
+        $demandeurs = Demandeur::all();
+        return view("demandeur")->with('demandeurs',$demandeurs)->with('success','Demandeur ajouté !!');
     }
 
     /**

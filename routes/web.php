@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\PersonnelController;
+use App\Models\Personnel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('personnel', PersonnelController::class);
+Route::get('personnel', [PersonnelController::class, 'index'])->name("personnel");
+Route::post('personnel', [PersonnelController::class, 'store'])->name("personnelSave");
+Route::post('personnel/delete', [PersonnelController::class, 'destroy'])->name("personnelDelete");
+Route::post('personnel/{matricule}', [PersonnelController::class, 'update'])->name("updatePersonnel");
+Route::post('demande/{id}', [DemandeurController::class, 'update'])->name("updateDemande");
+
+
 
 
 
