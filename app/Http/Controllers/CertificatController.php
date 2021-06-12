@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificat;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class CertificatController extends Controller
@@ -85,6 +86,9 @@ class CertificatController extends Controller
 
     public function printCertificat()
     {
-        return view("certificatPrint");
+        $pdf = PDF::loadView('certificatPrint');
+
+        return $pdf->stream('teste.pdf');
+
     }
 }

@@ -5,22 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Dashboard 2</title>
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <title>Certificat</title>
 </head>
 
 <body>
-    Teste
+
+    <style>
+        .row {
+            display: flex;
+            justify-content: space-between; /* or inline-flex */
+        }
+
+        .divLogo{
+            width: 40%;
+            margin-left: 400px;
+        }
+        .divInfo{
+            width: 60%;
+            text-align: center;
+            height: 300px;
+        }
+        .divInfo p{
+            font-weight: bold;
+        }
+
+        .devise{
+            width: 40%;
+            margin-left: 400px;
+            text-align: center;
+        }
+
+        .logoUJKZ{
+            width: 100px;
+        }
+
+        .logoIbam{
+            width: 100px;
+            margin-top: -12px;
+        }
+    </style>
+    <div class="container" style=" height: 400px;">
+        <div class="row">
+            <div class="devise">
+                <p>
+                    BURKINA FASO <br>
+                    -=-=-=-=-=- <br>
+                    Unité – Progrès – Justice !
+                </p><br>
+                <img class="logoUJKZ" src="{{ public_path("img/logoUniv.jpg") }}">
+                <div style="margin-top: -15px">
+                    <p>Ouagadougou le </p>
+
+                </div>
+            </div>
+            <div class="divInfo">
+                <p>
+                    MINISTERE DE L’ENSEIGNEMENT SUPERIEUR, <br>
+                    DE LA RECHERCHE SCIENTIFIQUE
+                    <br> ET DE L’INNOVATION <br>
+                    -=-=-=-=-=-=-=- <br>
+                    SECRETARIAT GENERAL <br>
+                    -=-=-=-=-=-=- <br>
+                    UNIVERSITE JOSEPH KI-ZERBO <br>
+                    -=-=-=-=-=-=-
+                </p><br>
+
+                <img class="logoIbam" src="{{ public_path("img/logoIbam.png") }}">
+
+                <p style="margin-top: -10px;">
+                    Institut Burkinabè des Arts et  Métiers <br>
+                    03 BP 7021 Ouagadougou 03 <br>
+                    Tél. : (226) 25-35-67-31/62 <br>
+                    Fax. : (226) 25-30-72-42 <br>
+                    Télex : 5270 BF
+                </p>
+                <p>
+                    N°2020-________________/MESRSI/SG/UJKZ/IBAM/D
+                </p>
+            </div>
+
+
+        </div>
+    </div>
+
 
     @yield('content')
 </body>
