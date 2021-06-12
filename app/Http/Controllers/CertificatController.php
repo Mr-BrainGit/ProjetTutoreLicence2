@@ -82,4 +82,9 @@ class CertificatController extends Controller
     {
         //
     }
+
+    public function printCertificat()
+    {
+        return view("certificatPrint");
+    }
 }

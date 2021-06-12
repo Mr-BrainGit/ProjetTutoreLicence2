@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CertificatController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\PersonnelController;
 use App\Models\Personnel;
@@ -26,8 +27,9 @@ Route::post('personnel/delete', [PersonnelController::class, 'destroy'])->name("
 Route::post('personnel/{matricule}', [PersonnelController::class, 'update'])->name("updatePersonnel");
 
 Route::get('demandeur', [DemandeurController::class, 'index'])->name("demandeur");
-Route::post('demandeur', [DemandeurController::class, 'store'])->name("demandeur");
+Route::post('demandeur', [DemandeurController::class, 'store'])->name("demandeurSave");
 Route::post('demande/{id}', [DemandeurController::class, 'update'])->name("updateDemande");
+Route::get('certificatPrint', [CertificatController::class, 'printCertificat'])->name("printCertificat");
 
 
 
