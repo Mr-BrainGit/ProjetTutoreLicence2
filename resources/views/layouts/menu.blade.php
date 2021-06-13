@@ -197,7 +197,7 @@
                           </a>
                     </li>
                     <li class="nav-item">
-                        
+
                         <a href="/personnel" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
@@ -221,11 +221,11 @@
                             </p>
                           </a>
                     </li>
-                    
+
                   </li>
                 </ul>
               </li>
-            
+
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -284,7 +284,7 @@
                   <a href="pages/layout/top-nav.html" class="nav-link">
                     <p>
                         <i class="far fa-circle nav-icon"></i>
-                        Passage salle 
+                        Passage salle
                     </p>
                   </a>
                 </li>
@@ -292,7 +292,7 @@
                   <a href="pages/layout/top-nav.html" class="nav-link">
                     <p>
                         <i class="far fa-circle nav-icon"></i>
-                        Demande audience 
+                        Demande audience
                     </p>
                   </a>
                 </li>
@@ -300,7 +300,7 @@
                     <a href="{{ route('demandeur') }}" class="nav-link">
                       <p>
                           <i class="far fa-circle nav-icon"></i>
-                          Demandeurs 
+                          Demandeurs
                       </p>
                     </a>
                   </li>
@@ -362,7 +362,7 @@
                         </p>
                     </a>
                 </li>
-                
+
               </li>
             </ul>
             <li class="nav-item">
@@ -372,8 +372,8 @@
                 </a>
             </li>
           </li>
-              
-              
+
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>

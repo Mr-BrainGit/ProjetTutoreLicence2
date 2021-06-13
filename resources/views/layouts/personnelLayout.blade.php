@@ -41,16 +41,16 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
+              <table style="border: 2px solid rgb(182, 182, 182)" id="example1" class="table table-bordered ">
+                <thead >
                 <tr>
-                  <th>Matricule</th>
-                  <th>Nom</th>
-                  <th>Prénom (s)</th>
-                  <th>Adresse</th>
-                  <th>Sexe</th>
-                  <th>Fonction</th>
-                  <th>Actions</th>
+                  <th style="border-bottom: 1px solid rgb(180, 176, 176); padding: 7px">Matricule</th>
+                  <th style="border-bottom: 1px solid rgb(180, 176, 176);; padding: 7px">Nom</th>
+                  <th style="border-bottom: 1px solid rgb(180, 176, 176);; padding: 7px">Prénom (s)</th>
+                  <th style="border-bottom: 1px solid rgb(180, 176, 176);; padding: 7px">Adresse</th>
+                  <th style="border-bottom: 1px solid rgb(180, 176, 176);; padding: 7px">Sexe</th>
+                  <th style="border-bottom: 1px solid rgb(180, 176, 176);; padding: 7px">Fonction</th>
+                  <th style="border-bottom: 1px solid rgb(180, 176, 176);; padding: 7px">Actions</th>
 
                 </tr>
                 </thead>
@@ -58,14 +58,14 @@
 
                     @foreach ($personnels as $personnel)
                     <tr>
-                        <td style="padding-top:17px;"> {{ $personnel->matricule }} </td>
-                        <td style="padding-top:17px;">{{ $personnel->nom }}</td>
-                        <td style="padding-top:17px;">{{ $personnel->prenom }}</td>
-                        <td style="padding-top:17px;">{{ $personnel->adresse }}</td>
-                        <td style="padding-top:17px;">{{ $personnel->sexe }}</td>
-                        <td style="padding-top:17px;">{{ $personnel->libelleFonction }}</td>
-                        <td>
-                            <button type="button"
+                        <td style="padding: 7px"> {{ $personnel->matricule }} </td>
+                        <td style="padding: 7px;">{{ $personnel->nom }}</td>
+                        <td style="padding: 7px;">{{ $personnel->prenom }}</td>
+                        <td style="padding: 7px;">{{ $personnel->adresse }}</td>
+                        <td style="padding: 7px;">{{ $personnel->sexe }}</td>
+                        <td style="padding: 7px;">{{ $personnel->libelleFonction }}</td>
+                        <td style="padding: 7px;">
+                            <button style="border-radius: 50%" type="button"
                                     id="edit"
                                     data-type="edit"
                                     data-matricule="{{ $personnel->matricule }} "
@@ -84,7 +84,7 @@
                                     data-target="#personelmodal"
                                     class="btn btn-success btn-sm"><i class="fa fa-edit"></i>
                             </button>
-                            <button type="button" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            <button style="border-radius: 50%" type="button" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                         </td>
                       </tr>
                     @endforeach
@@ -222,8 +222,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="envoyer" id="submit" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="submit" name="envoyer" id="submit" class="btn btn-primary">Enregistrer</button>
                       </div>
                   </form>
               </div>
@@ -234,7 +234,7 @@
   </div>
 
 
-  
+
   <script src="../plugins/jquery/jquery.min.js"></script>
 
 
@@ -304,11 +304,11 @@
       $('.modal-title').text('Confirmation');
       $('#matricule').val(id);
     })
-    
+
     });
 
-    
-    //Fonction de validation des champs du formulaire à adapter en fonction des 
+
+    //Fonction de validation des champs du formulaire à adapter en fonction des
     //champs du formulaire
     $(function(){
         $('#form').validate({
@@ -351,8 +351,8 @@
         echellon: {
             required: true
         },
-        
-        
+
+
         },
         messages: {
             matricule: {
@@ -392,7 +392,7 @@
             echellon: {
                 required: "L'echellon est requis !"
             },
-           
+
         },
         errorElement: 'span',
         errorPlacement: function(error, element) {
@@ -409,7 +409,7 @@
         });
     })
 
-   
+
 </script>
 
 
