@@ -57,13 +57,13 @@
                     <tr>
                         <td style="padding-top:17px;">{{ $demandeur->nomDemandeur }}</td>
                         <td style="padding-top:17px;">{{ $demandeur->prenomDemandeur }}</td>
-                       
+
                         <td style="padding-top:17px;">{{ $demandeur->tel }}</td>
                         <td>
                             <button type="button"
                                     id="edit"
                                     data-type="edit"
-                                    data-matricule="{{ $demandeur->matricule }} "
+                                    data-id="{{ $demandeur->idDemandeur }} "
                                     data-nom="{{ $demandeur->nomDemandeur }}"
                                     data-prenom="{{ $demandeur->prenomDemandeur }}"
                                     data-tel="{{ $demandeur->tel }}"
@@ -71,7 +71,7 @@
                                     data-target="#personelmodal"
                                     class="btn btn-success btn-sm"><i class="fa fa-edit"></i>
                             </button>
-                            <button type="button" data-matricule="{{ $demandeur->matricule }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            <button type="button" data-id="{{ $demandeur->idDemandeur }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                         </td>
                       </tr>
                     @endforeach
@@ -91,6 +91,30 @@
     <!-- /.content -->
   </div>
 
+  <div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Voulez-vous vraiment supprimer ce demandeur ?
+        </div>
+        <form action="{{route('demandeurDelete')}}" method="post">
+            @csrf
+            <input type="hidden" id="idDel" name="idD">
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Oui</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="personelmodal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -104,9 +128,9 @@
               <div class="container">
                   <form id="form" method="post" action="">
                       @csrf
-                      <input type="hidden" name="matricule">
+                      <input type="hidden" id="idD" name="idD">
                       <div class="row">
-                          
+
                             <div class="form-group col-md-12">
                               <label for="nom" class="col-form-label">Nom</label>
                               <input type="text" class="form-control" name="nom" id="nom">
@@ -120,7 +144,7 @@
                                 <input type="tel" class="form-control" name="tel" id="tel">
                               </div>
                         </div>
-                    
+
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -147,6 +171,9 @@
             $('#nom').val('');
             $('#prenom').val('');
             $('#tel').val('');
+
+            $("#form").attr('action', "{{route('demandeurSave')}}");
+
             $('#update-btn').hide();
             $('#save-btn').show();
         } else {
@@ -154,21 +181,35 @@
         var nom = button.data('nom');
         var prenom = button.data('prenom');
         var tel = button.data('tel');
-    
+        var id = button.data('id');
+
+
+
         $('#nom').val(nom);
         $('#prenom').val(prenom);
-       
+        $('#idD').val(id);
+
         $('#tel').val(tel);
-       
+        $("#form").attr('action', "{{route('demandeurUpdate', " + id + ")}}");
+
+
         $('#save-btn').hide();
         $('#update-btn').show();
       }
 
 
-        });
+    });
+
+    //Fonction permettant d'ouvrir le modal de confirmation pour la suppression
+    $('#confirm-modal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        $('.modal-title').text('Confirmation');
+        $('#idDel').val(id);
+    })
 
 
-    
+
 
     });
     $(function(){
@@ -185,10 +226,10 @@
                 min: 0,
                 required: true
             },
-        
+
         },
         messages: {
-            
+
             nom: {
                 required: "Le nom est requis !",
             },
@@ -198,8 +239,8 @@
             tel: {
                 required: "Le téléphone est requis !",
             },
-            
-           
+
+
         },
         errorElement: 'span',
         errorPlacement: function(error, element) {
@@ -216,7 +257,7 @@
         });
     })
 
-   
+
 </script>
 
 

@@ -28,7 +28,9 @@ Route::post('personnel/{matricule}', [PersonnelController::class, 'update'])->na
 
 Route::get('demandeur', [DemandeurController::class, 'index'])->name("demandeur");
 Route::post('demandeur', [DemandeurController::class, 'store'])->name("demandeurSave");
-Route::post('demande/{id}', [DemandeurController::class, 'update'])->name("updateDemande");
+Route::post('demandeur/{id}', [DemandeurController::class, 'update'])->name("demandeurUpdate");
+Route::post('demandeurs/delete', [DemandeurController::class, 'destroy'])->name("demandeurDelete");
+
 Route::get('certificatPrint', [CertificatController::class, 'printCertificat'])->name("printCertificat");
 
 

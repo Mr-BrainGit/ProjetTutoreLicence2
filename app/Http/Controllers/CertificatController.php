@@ -86,7 +86,8 @@ class CertificatController extends Controller
 
     public function printCertificat()
     {
-        $pdf = PDF::loadView('certificatPrint');
+        $card = "Eze";
+        $pdf = PDF::loadView('certificatPrint', array('data' =>$card));
 
         return $pdf->stream('teste.pdf');
 

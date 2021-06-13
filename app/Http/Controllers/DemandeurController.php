@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Demandeur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class DemandeurController extends Controller
 {
@@ -36,7 +37,7 @@ class DemandeurController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         Demandeur::create([
             "nomDemandeur" => $request->nom,
             "prenomDemandeur" => $request->prenom,
@@ -76,9 +77,19 @@ class DemandeurController extends Controller
      * @param  \App\Models\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Demandeur $demandeur)
+    public function update(Request $request)
     {
-        //
+
+        $demandeur = Demandeur::where("idDemandeur", $request->idD);
+        $demandeur->update([
+            "nomDemandeur" => $request->nom,
+            "prenomDemandeur" => $request->prenom,
+            "tel" => $request->tel,
+        ]);
+
+        return Redirect::route('demandeur')->with('success',"Personnel mis à jour !");
+
+
     }
 
     /**
@@ -87,8 +98,11 @@ class DemandeurController extends Controller
      * @param  \App\Models\Demandeur  $demandeur
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Demandeur $demandeur)
+    public function destroy(Request $request)
     {
-        //
+        $demandeur = Demandeur::where("idDemandeur", $request->idD);
+        $demandeur->delete();
+
+        return Redirect::route('demandeur')->with('success',"Personnel mis à jour !");
     }
 }

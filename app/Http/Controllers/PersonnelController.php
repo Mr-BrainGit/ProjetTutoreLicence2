@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\personnelResource;
 use App\Models\CategoriePersonnel;
+use App\Models\Certificat;
 use App\Models\Echellon;
 use App\Models\Fonction;
 use App\Models\Personnel;
@@ -42,7 +43,21 @@ class PersonnelController extends Controller
      */
     public function store(Request $request)
     {
-        
+
+        Personnel::validate([
+            "matricule" => "required",
+            "nom" => "required",
+            "prenom" => "required",
+            "dateNaissance" => "required",
+            "adresse" => "required",
+            "sexe" => "required",
+            "telephone" => "required",
+            "email" => "required",
+            "EnService" => true,
+            "diplome" => "required",
+            "idFonction" => "required",
+            "idCategorieP" => "required",
+        ]);
 
         Personnel::create([
             "matricule" => $request->matricule,
@@ -59,11 +74,25 @@ class PersonnelController extends Controller
             "idCategorieP" => $request->categorie,
         ]);
 
+        Certificat::create([
+            "fonctionPrecedente" => $request->foncP,
+            "fonctionActuelle" => $request->fonction,
+            "structurePrecedente" => $request->strucP,
+            "structureActuelle" => "IBAM",
+            "decision" => $request->decision,
+            "date" => $request->datePS,
+            "matricule" => $request->matricule,
+
+
+
+
+        ]);
+
         return Redirect::route('personnel')->with('success',"Personnel mis à jour !");
 
     }
 
-   
+
     /**
      * Update the specified resource in storage.
      *

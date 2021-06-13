@@ -65,6 +65,7 @@
                         <td style="padding: 7px;">{{ $personnel->sexe }}</td>
                         <td style="padding: 7px;">{{ $personnel->libelleFonction }}</td>
                         <td style="padding: 7px;">
+                            <button style="border-radius: 5px" type="button" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-success btn-sm"> Certificat de prise de service</button>
                             <button style="border-radius: 50%" type="button"
                                     id="edit"
                                     data-type="edit"
@@ -129,7 +130,7 @@
   </div>
 
   <div class="modal fade" id="personelmodal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Enregistrement personnel</h5>
@@ -145,29 +146,29 @@
 
                       <input type="hidden" id="Oldmatricule" name="Oldmatricule">
                       <div class="row">
-                          <div class="form-group col-md-4">
+                          <div class="form-group col-md-3">
                               <label for="matricule" class="col-form-label">Numéro matricule</label>
-                              <input type="text" class="form-control" name="matricule" id="matricule">
+                              <input type="text" class="form-control" name="matricule" id="mat">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label for="nom" class="col-form-label">Nom</label>
                               <input type="text" class="form-control" name="nom" id="nom">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label for="prenom" class="col-form-label">Prénom (s)</label>
                               <input type="text" class="form-control" name="prenom" id="prenom">
                             </div>
+                            <div class="form-group col-md-3">
+                                <label for="dateNaissance" class="col-form-label">Date de naissance</label>
+                                <input type="date" class="form-control" name="dateNaissance" id="dateNaissance">
+                            </div>
                         </div>
                     <div class="row">
-                      <div class="form-group col-md-4">
-                          <label for="dateNaissance" class="col-form-label">Date de naissance</label>
-                          <input type="date" class="form-control" name="dateNaissance" id="dateNaissance">
-                        </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                           <label for="adresse" class="col-form-label">Adresse</label>
                           <input type="text" class="form-control" name="adresse" id="adresse">
                         </div>
-                        <div class="form-group col-md-4">
+                        <div style="margin-top: 5px" class="form-group col-md-3">
                           <label for="sexe">Sexe</label>
                           <select id="sexe" name="sexe" class="form-control">
                             <option value="M">Masculin</option>
@@ -175,24 +176,22 @@
                             <option value="AUTRE">Autre</option>
                           </select>
                         </div>
+                        <div class="form-group col-md-3">
+                            <label for="tel" class="col-form-label">Téléphone</label>
+                            <input type="tel" class="form-control" name="tel" id="tel">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="email" class="col-form-label">Adresse email</label>
+                            <input type="email" class="form-control" name="email" id="email">
+                        </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-md-4">
-                          <label for="tel" class="col-form-label">Téléphone</label>
-                          <input type="tel" class="form-control" name="tel" id="tel">
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label for="email" class="col-form-label">Adresse email</label>
-                          <input type="email" class="form-control" name="email" id="email">
-                        </div>
-                        <div class="form-group col-md-4">
+
+                        <div class="form-group col-md-3">
                           <label for="diplome" class="col-form-label">Diplome</label>
                           <input type="text" class="form-control" name="diplome" id="diplome">
                         </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="form-group col-md-4">
+                        <div style="margin-top: 5px" class="form-group col-md-3">
                           <label for="fonction">Fonction</label>
                           <select id="fonction" name="fonction" class="form-control">
                             <option selected>Choose...</option>
@@ -201,7 +200,7 @@
                             @endforeach
                           </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                           <label for="categorie">Catégorie</label>
                           <select id="categorie" name="categorie" class="form-control">
                                   <option selected> ... </option>
@@ -210,7 +209,7 @@
                             @endforeach
                           </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                           <label for="echellon">Echellon</label>
                           <select id="echellon" name="echellon" class="form-control">
                             <option selected>...</option>
@@ -220,6 +219,27 @@
                           </select>
                         </div>
                     </div>
+
+
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="strucP" class="col-form-label">Structure précédente</label>
+                            <input type="strucP" class="form-control" name="strucP" id="strucP">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="foncP" class="col-form-label">Fonction précédente</label>
+                            <input type="foncP" class="form-control" name="foncP" id="foncP">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="datePS" class="col-form-label">Date de prise de service</label>
+                            <input type="date" class="form-control" name="datePS" id="datePS">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="decision" class="col-form-label">Décision</label>
+                            <input type="text" class="form-control" name="decision" id="decision">
+                          </div>
+                      </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -276,7 +296,7 @@
         var categorie = button.data('categorie');
         var echellon = button.data('echellon');
 
-        $('#matricule').val(matricule);
+        $('#mat').val(matricule);
         $('#Oldmatricule').val(matricule);
         $('#nom').val(nom);
         $('#prenom').val(prenom);
@@ -297,15 +317,19 @@
 
     })
 
-    //Fonction permettant d'ouvrir le modal de confirmation pour la suppression
-    $('#confirm-modal').on('show.bs.modal', function(event) {
-      var button = $(event.relatedTarget);
-      var id = button.data('matricule');
-      $('.modal-title').text('Confirmation');
-      $('#matricule').val(id);
-    })
+        //Fonction permettant d'ouvrir le modal de confirmation pour la suppression
+        $('#confirm-modal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('matricule');
+        $('.modal-title').text('Confirmation');
+        $('#matricule').val(id);
+        })
+
+
 
     });
+
+
 
 
     //Fonction de validation des champs du formulaire à adapter en fonction des
@@ -351,6 +375,18 @@
         echellon: {
             required: true
         },
+        strucP: {
+            required: true
+        },
+        foncP: {
+            required: true
+        },
+        datePS: {
+            required: true
+        },
+        decision: {
+            required: true
+        },
 
 
         },
@@ -391,6 +427,18 @@
             },
             echellon: {
                 required: "L'echellon est requis !"
+            },
+            strucP: {
+                required: "Cette information est requise pour générer le certificat de prise de service"
+            },
+            foncP: {
+                required: "Cette information est requise pour générer le certificat de prise de service"
+            },
+            datePS: {
+                required: "Cette information est requise pour générer le certificat de prise de service"
+            },
+            decision: {
+                required: "Cette information est requise pour générer le certificat de prise de service"
             },
 
         },
