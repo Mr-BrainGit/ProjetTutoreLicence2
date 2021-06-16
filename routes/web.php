@@ -31,7 +31,7 @@ Route::post('demandeur', [DemandeurController::class, 'store'])->name("demandeur
 Route::post('demandeur/{id}', [DemandeurController::class, 'update'])->name("demandeurUpdate");
 Route::post('demandeurs/delete', [DemandeurController::class, 'destroy'])->name("demandeurDelete");
 
-Route::get('certificatPrint', [CertificatController::class, 'printCertificat'])->name("printCertificat");
+Route::post('certificatPrint', [CertificatController::class, 'printCertificat'])->name("printCertificat");
 
 
 

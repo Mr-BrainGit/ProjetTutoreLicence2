@@ -65,7 +65,7 @@
                         <td style="padding: 7px;">{{ $personnel->sexe }}</td>
                         <td style="padding: 7px;">{{ $personnel->libelleFonction }}</td>
                         <td style="padding: 7px;">
-                            <button style="border-radius: 5px" type="button" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-success btn-sm"> Certificat de prise de service</button>
+                            <button style="border-radius: 5px" type="button" id="matCert" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#certificat-modal"  class="btn btn-success btn-sm"> Certificats</button>
                             <button style="border-radius: 50%" type="button"
                                     id="edit"
                                     data-type="edit"
@@ -80,7 +80,12 @@
                                     data-diplome="{{ $personnel->diplome }}"
                                     data-datenaissance="{{ $personnel->dateNaissance }}"
                                     data-categorie="{{ $personnel->idCategorieP }}"
-                                    data-echellon="{{ $personnel->idEchellon }}"
+                                    data-structure="{{ $personnel->structurePrecedente }}"
+                                    data-fonctionp="{{ $personnel->fonctionPrecedente }}"
+                                    data-decision="{{ $personnel->decision }}"
+                                    data-echelon="{{ $personnel->idEchellon }}"
+                                    data-datep="{{ $personnel->date }}"
+
                                     data-toggle="modal"
                                     data-target="#personelmodal"
                                     class="btn btn-success btn-sm"><i class="fa fa-edit"></i>
@@ -125,6 +130,37 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
             </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="certificat-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Quel certificat ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Choisissez le certificat que vous voulez visualiser
+        </div>
+        <div class="modal-footer">
+            <form action="{{route('printCertificat')}}" method="post">
+                @csrf
+                <input type="hidden" id="matriculeCert1" name="matricule">
+                <input type="hidden" id="typeCer" value="1" name="typeCer">
+                <button type="submit" class="btn btn-primary">Certificat de prise de service</button>
+            </form>
+            <form action="{{route('printCertificat')}}" method="post">
+                @csrf
+                <input type="hidden" id="matriculeCert2" name="matricule">
+                <input type="hidden" id="typeCer" value="2" name="typeCer">
+                <button type="submit" class="btn btn-primary">Certificat de cessation de service</button>
+            </form>
+        </div>
+
       </div>
     </div>
   </div>
@@ -203,7 +239,7 @@
                         <div class="form-group col-md-3">
                           <label for="categorie">Catégorie</label>
                           <select id="categorie" name="categorie" class="form-control">
-                                  <option selected> ... </option>
+                                  <option> ... </option>
                             @foreach ($categories as $categorie)
                                   <option value="{{ $categorie->idCategorieP }}"> {{ $categorie->libelleCategorie }} </option>
                             @endforeach
@@ -211,8 +247,8 @@
                         </div>
                         <div class="form-group col-md-3">
                           <label for="echellon">Echellon</label>
-                          <select id="echellon" name="echellon" class="form-control">
-                            <option selected>...</option>
+                          <select id="echelon" name="echellon" class="form-control">
+                            <option>...</option>
                             @foreach ($echellons as $echellon)
                                   <option value="{{ $echellon->idEchellon }}"> {{ $echellon->libelleEchelon }} </option>
                             @endforeach
@@ -266,7 +302,7 @@
         var button = $(event.relatedTarget);
         if (button.data('type') === "ajout") {
             $('.modal-title').text('Créer un personnel');
-            $('#matricule').val('');
+            $('#mat').val('');
             $('#nom').val('');
             $('#prenom').val('');
             $('#dateNaissance').val('');
@@ -277,7 +313,7 @@
             $('#diplome').val('');
             $('#fonction').val('');
             $('#categorie').val('');
-            $('#echellon').val('');
+            $('#echelon').val('');
 
            //Changement de la route dans l'action du formulaire
             $("#form").attr('action', "{{route('personnelSave')}}");
@@ -294,8 +330,14 @@
         var diplome = button.data('diplome');
         var fonction = button.data('fonction');
         var categorie = button.data('categorie');
-        var echellon = button.data('echellon');
+        var echellon = button.data('echelon');
+        var structure = button.data('structure');
+        var fonctionP = button.data('fonctionp');
+        var decision = button.data('decision');
+        var datePriseService = button.data('datep');
 
+
+            alert(echellon);
         $('#mat').val(matricule);
         $('#Oldmatricule').val(matricule);
         $('#nom').val(nom);
@@ -308,7 +350,14 @@
         $('#diplome').val(diplome);
         $('#fonction').val(fonction);
         $('#categorie').val(categorie);
-        $('#echellon').val(echellon);
+        $('#echelon').val(echellon);
+        $('#strucP').val(structure);
+        $('#foncP').val(fonctionP);
+        $('#decision').val(decision);
+        $('#datePS').val(datePriseService);
+
+
+
 
         //Changement de la route dans l'action du formulaire
         $("#form").attr('action', "{{route('updatePersonnel', " + matricule + ")}}");
@@ -317,13 +366,22 @@
 
     })
 
+        $('#certificat-modal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('matricule');
+            $('#matriculeCert1').val(id);
+            $('#matriculeCert2').val(id);
+
+
+        });
+
         //Fonction permettant d'ouvrir le modal de confirmation pour la suppression
         $('#confirm-modal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var id = button.data('matricule');
-        $('.modal-title').text('Confirmation');
-        $('#matricule').val(id);
-        })
+            var button = $(event.relatedTarget);
+            var id = button.data('matricule');
+            $('.modal-title').text('Confirmation');
+            $('#matricule').val(id);
+        });
 
 
 

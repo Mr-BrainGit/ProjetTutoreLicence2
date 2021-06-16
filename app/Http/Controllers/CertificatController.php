@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificat;
+use App\Models\Personnel;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isEmpty;
 
 class CertificatController extends Controller
 {
@@ -84,12 +88,43 @@ class CertificatController extends Controller
         //
     }
 
-    public function printCertificat()
+    public function printCertificat(Request $request)
     {
-        $card = "Eze";
-        $pdf = PDF::loadView('certificatPrint', array('data' =>$card));
+        $matricule = $request->matricule;
+        Carbon::setLocale('fr');
 
-        return $pdf->stream('teste.pdf');
+        if ($request->typeCer === "1") {
+            $personnels = Personnel::where('personnels.matricule', $matricule)
+                                ->join('fonctions', 'personnels.idFonction', '=', 'fonctions.idFonction')
+                                ->join('categorie_personnels', 'personnels.idCategorieP', '=', 'categorie_personnels.idCategorieP')
+                                ->join('certificats', 'personnels.matricule', '=', 'certificats.matricule')->where('certificats.idTypeCertificat', '=', 1)
+                                ->join('type_certificats', 'type_certificats.idTypeCertificat', '=', 'certificats.idTypeCertificat')
+                                ->get()->values();
+
+            $personnels[0]->date = Carbon::parse($personnels[0]->date)->translatedFormat('d M Y');
+            $pdf = PDF::loadView('certificatPrint', array('data' =>$personnels));
+            return $pdf->stream('teste.pdf');
+        } elseif($request->typeCer === "2") {
+
+            $personnels = Personnel::where('personnels.matricule', $matricule)
+                                ->join('fonctions', 'personnels.idFonction', '=', 'fonctions.idFonction')
+                                ->join('categorie_personnels', 'personnels.idCategorieP', '=', 'categorie_personnels.idCategorieP')
+                                ->join('certificats', 'personnels.matricule', '=', 'certificats.matricule')->where('certificats.idTypeCertificat', '=', 2)
+                                ->join('type_certificats', 'type_certificats.idTypeCertificat', '=', 'certificats.idTypeCertificat')
+                                ->get()->values();
+
+
+
+            if (isEmpty($personnels)) {
+                echo('Certificat de cessation inexistant !!');
+            }else{
+                $pdf = PDF::loadView('certificatPrint', array('data' =>$personnels));
+                return $pdf->stream('teste.pdf');
+            }
+
+        }
+
+
 
     }
 }

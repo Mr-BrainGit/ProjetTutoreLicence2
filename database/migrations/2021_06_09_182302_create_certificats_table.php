@@ -25,6 +25,8 @@ class CreateCertificatsTable extends Migration
             $table->unsignedBigInteger("idTypeCertificat");
             $table->foreign("matricule")->references("matricule")->on("personnels")->onDelete("cascade")->onUpdate("cascade");
             $table->foreign("idTypeCertificat")->references("idTypeCertificat")->on("type_certificats")->onDelete("cascade")->onUpdate("cascade");
+            $table->timestamps();
+
         });
     }
 

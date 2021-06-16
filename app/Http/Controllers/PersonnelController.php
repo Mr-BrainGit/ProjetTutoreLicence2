@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\personnelResource;
 use App\Models\CategoriePersonnel;
 use App\Models\Certificat;
 use App\Models\Echellon;
@@ -26,6 +25,7 @@ class PersonnelController extends Controller
         $personnels = Personnel::orderByDesc('personnels.created_at')
                                 ->join('fonctions', 'personnels.idFonction', '=', 'fonctions.idFonction')
                                 ->join('categorie_personnels', 'personnels.idCategorieP', '=', 'categorie_personnels.idCategorieP')
+                                ->join('certificats', 'personnels.matricule', '=', 'certificats.matricule')->where('certificats.idTypeCertificat', '=', 1)
                                 ->get()->values();
 
 
@@ -44,7 +44,7 @@ class PersonnelController extends Controller
     public function store(Request $request)
     {
 
-        Personnel::validate([
+        /**Personnel::validate([
             "matricule" => "required",
             "nom" => "required",
             "prenom" => "required",
@@ -57,7 +57,7 @@ class PersonnelController extends Controller
             "diplome" => "required",
             "idFonction" => "required",
             "idCategorieP" => "required",
-        ]);
+        ]);*/
 
         Personnel::create([
             "matricule" => $request->matricule,
@@ -82,9 +82,7 @@ class PersonnelController extends Controller
             "decision" => $request->decision,
             "date" => $request->datePS,
             "matricule" => $request->matricule,
-
-
-
+            "idTypeCertificat" => 1,
 
         ]);
 
