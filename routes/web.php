@@ -3,7 +3,8 @@
 use App\Http\Controllers\CertificatController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\PersonnelController;
-use App\Models\Personnel;
+use App\Http\Controllers\NoteInformationController;
+use App\Http\Controllers\NoteServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,16 @@ Route::post('demandeurs/delete', [DemandeurController::class, 'destroy'])->name(
 
 Route::post('certificatPrint', [CertificatController::class, 'printCertificat'])->name("printCertificat");
 
+
+Route::get('noteInformation', [NoteInformationController::class, 'index'])->name("noteInformation");
+Route::post('noteInformation', [NoteInformationController::class, 'store'])->name("noteInfoSave");
+Route::post('noteInformation/print', [NoteInformationController::class, 'print'])->name("noteInfoPrint");
+Route::post('noteInformation/delete', [NoteInformationController::class, 'destroy'])->name("noteInfoDelete");
+
+Route::get('noteService', [NoteServiceController::class, 'index'])->name("noteService");
+Route::post('noteService', [NoteServiceController::class, 'store'])->name("noteServSave");
+Route::post('noteService/print', [NoteServiceController::class, 'print'])->name("noteServPrint");
+Route::post('noteService/delete', [NoteServiceController::class, 'destroy'])->name("noteServDelete");
 
 
 

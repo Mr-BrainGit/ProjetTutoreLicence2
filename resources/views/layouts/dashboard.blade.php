@@ -18,14 +18,8 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-<!--
-        <form method="post" action="" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <textarea class="ckeditor form-control" name="wysiwyg-editor"></textarea>
-            </div>
-        </form>
-    -->
+
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -98,3 +92,5 @@
     </section>
     <!-- /.content -->
   </div>
+
+

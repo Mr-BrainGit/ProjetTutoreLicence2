@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\NoteInformation;
+use App\Models\Signataire;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class NoteInformationController extends Controller
 {
@@ -14,7 +17,13 @@ class NoteInformationController extends Controller
      */
     public function index()
     {
-        //
+        $signataires = Signataire::all();
+        $noteInformation = NoteInformation::orderByDesc('note_information.created_at')
+                                ->join('signataires', 'note_information.idSignataire', '=', 'signataires.idSignataire')
+                                ->get()->values();
+
+        return view('noteInformation')->with('noteInformation',$noteInformation)
+                                      ->with('signataires',$signataires);
     }
 
     /**
@@ -35,7 +44,12 @@ class NoteInformationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        NoteInformation::create([
+            "destinataire" => $request->destinataire,
+            "description" => $request->description,
+            "idSignataire" => $request->signataire
+        ]);
+        return Redirect::route('noteInformation')->with('success',"Personnel mis à jour !");
     }
 
     /**
@@ -72,14 +86,29 @@ class NoteInformationController extends Controller
         //
     }
 
+    public function print(Request $request)
+    {
+        $id = $request->id;
+        $noteInformation = NoteInformation::where('idNoteI', $id)
+                                ->join('signataires', 'note_information.idSignataire', '=', 'signataires.idSignataire')
+                                ->first();
+
+        $pdf = PDF::loadView('noteInfoPrint', array('data' => $noteInformation));
+                return $pdf->stream('teste.pdf');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\NoteInformation  $noteInformation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NoteInformation $noteInformation)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->idD;
+        $nateI = NoteInformation::where("idNoteI", $id);
+        $nateI->delete();
+        return Redirect::route('noteInformation')->with('success',"Personnel mis à jour !");
+
     }
 }

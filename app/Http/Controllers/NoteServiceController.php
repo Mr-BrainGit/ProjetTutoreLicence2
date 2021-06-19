@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\NoteService;
+use App\Models\Signataire;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class NoteServiceController extends Controller
 {
@@ -14,7 +17,13 @@ class NoteServiceController extends Controller
      */
     public function index()
     {
-        //
+        $signataires = Signataire::all();
+        $noteService = NoteService::orderByDesc('note_services.created_at')
+                                ->join('signataires', 'note_services.idSignataire', '=', 'signataires.idSignataire')
+                                ->get()->values();
+
+        return view('noteService')->with('noteService',$noteService)
+                                      ->with('signataires',$signataires);
     }
 
     /**
@@ -35,7 +44,12 @@ class NoteServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        NoteService::create([
+            "libelleNoteS" => $request->destinataire,
+            "corpsNoteS" => $request->description,
+            "idSignataire" => $request->signataire
+        ]);
+        return Redirect::route('noteService')->with('success',"Personnel mis à jour !");
     }
 
     /**
@@ -47,6 +61,17 @@ class NoteServiceController extends Controller
     public function show(NoteService $noteService)
     {
         //
+    }
+
+    public function print(Request $request)
+    {
+        $id = $request->id;
+        $noteService = NoteService::where('idNoteS', $id)
+                                ->join('signataires', 'note_services.idSignataire', '=', 'signataires.idSignataire')
+                                ->first();
+
+        $pdf = PDF::loadView('noteInfoPrint', array('data' => $noteService));
+                return $pdf->stream('teste.pdf');
     }
 
     /**
@@ -78,8 +103,11 @@ class NoteServiceController extends Controller
      * @param  \App\Models\NoteService  $noteService
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NoteService $noteService)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->idD;
+        $nateI = NoteService::where("idNoteS", $id);
+        $nateI->delete();
+        return Redirect::route('noteService')->with('success',"Personnel mis à jour !");
     }
 }

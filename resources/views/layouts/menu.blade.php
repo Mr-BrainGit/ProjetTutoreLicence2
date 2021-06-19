@@ -309,7 +309,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link @yield('notes')">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Notes
@@ -318,7 +318,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
+                    <a href="/noteInformation" class="nav-link @yield('noteInformation')">
                     <p>
                         <i class="far fa-circle nav-icon"></i>
                         Notes d'information <br>
@@ -326,7 +326,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
+                    <a href="/noteService" class="nav-link  @yield('noteService')">
                         <p>
                             <i class="far fa-circle nav-icon"></i>
                             Note de service
@@ -490,5 +490,12 @@
 
 
   </script>
+
+<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
 </body>
 </html>

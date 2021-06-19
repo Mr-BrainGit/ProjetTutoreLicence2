@@ -28,7 +28,6 @@ class PersonnelController extends Controller
                                 ->join('certificats', 'personnels.matricule', '=', 'certificats.matricule')->where('certificats.idTypeCertificat', '=', 1)
                                 ->get()->values();
 
-
         return view('personnel')->with('categories',$categories)
                                 ->with('fonctions',$fonctions)
                                 ->with('echellons',$echellons)
