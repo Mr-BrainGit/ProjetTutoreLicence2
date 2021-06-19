@@ -228,7 +228,7 @@
 
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link @yield('fiches')">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Fiches de demande
@@ -237,7 +237,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
+                    <a href="/autorisationP" class="nav-link @yield('autorisationP')">
                     <p>
                         <i class="far fa-circle nav-icon"></i>
                         Prélèvement mensuel <br>

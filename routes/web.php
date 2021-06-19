@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutorisationPrelevementController;
 use App\Http\Controllers\CertificatController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\PersonnelController;
@@ -44,6 +45,16 @@ Route::get('noteService', [NoteServiceController::class, 'index'])->name("noteSe
 Route::post('noteService', [NoteServiceController::class, 'store'])->name("noteServSave");
 Route::post('noteService/print', [NoteServiceController::class, 'print'])->name("noteServPrint");
 Route::post('noteService/delete', [NoteServiceController::class, 'destroy'])->name("noteServDelete");
+
+Route::get('autorisationP', [AutorisationPrelevementController::class, 'index'])->name("autorisationP");
+Route::post('autorisationP', [AutorisationPrelevementController::class, 'store'])->name("autorisationPSave");
+Route::post('autorisationP/update', [AutorisationPrelevementController::class, 'update'])->name("autorisationPUpdate");
+Route::post('autorisationP/delete', [AutorisationPrelevementController::class, 'destroy'])->name("autorisationPDelete");
+Route::post('autorisationP/print', [AutorisationPrelevementController::class, 'print'])->name("autorisationPrint");
+
+
+
+
 
 
 

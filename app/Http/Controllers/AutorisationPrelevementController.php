@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AutorisationPrelevement;
+use App\Models\Personnel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 
 class AutorisationPrelevementController extends Controller
 {
@@ -14,7 +18,14 @@ class AutorisationPrelevementController extends Controller
      */
     public function index()
     {
-        //
+
+        $personnels = Personnel::all();
+        $autorisations = AutorisationPrelevement::orderByDesc('autorisation_prelevements.created_at')
+                                ->join('personnels', 'autorisation_prelevements.matricule', '=', 'personnels.matricule')
+                                ->get()->values();
+
+        return view('autorisationPrelevement')->with('personnels',$personnels)
+                                ->with('autorisations',$autorisations);
     }
 
     /**
@@ -35,7 +46,14 @@ class AutorisationPrelevementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        AutorisationPrelevement::create([
+          "libelleAutorisation" => "a",
+          "datePriseEffet" => $request->dateps,
+          "dateEtablissement" => $request->dateE,
+          "montantChiffer" => $request->montantChiffre,
+          "montantLettre" => $request->montantLettre,
+          "matricule" => $request->matricule
+        ]);
     }
 
     /**
@@ -67,9 +85,22 @@ class AutorisationPrelevementController extends Controller
      * @param  \App\Models\AutorisationPrelevement  $autorisationPrelevement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AutorisationPrelevement $autorisationPrelevement)
+    public function update(Request $request)
     {
-        //
+        $id = $request->id;
+        $auth = AutorisationPrelevement::where('idAutorisationP', $id);
+        $auth->update([
+            "libelleAutorisation" => "a",
+            "datePriseEffet" => $request->dateps,
+            "dateEtablissement" => $request->dateE,
+            "montantChiffer" => $request->montantChiffre,
+            "montantLettre" => $request->montantLettre,
+            "matricule" => $request->matricule
+        ]);
+
+        return Redirect::route('autorisationP')->with('success',"Personnel mis à jour !");
+
+
     }
 
     /**
@@ -78,8 +109,27 @@ class AutorisationPrelevementController extends Controller
      * @param  \App\Models\AutorisationPrelevement  $autorisationPrelevement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AutorisationPrelevement $autorisationPrelevement)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->idD;
+
+
+        $auth = AutorisationPrelevement::where('idAutorisationP', $id);
+        $auth->delete();
+        return Redirect::route('autorisationP')->with('success',"Personnel mis à jour !");
+
+    }
+
+    public function print(Request $request){
+        $id = $request->id;
+        Carbon::setLocale('fr');
+        $autorisation = AutorisationPrelevement::where('idAutorisationP', $id)
+                                                ->join('personnels', 'autorisation_prelevements.matricule', '=', 'personnels.matricule')
+                                                ->first();
+        $autorisation->datePriseEffet = Carbon::parse($autorisation->datePriseEffet)->translatedFormat('d M Y');
+        $autorisation->dateEtablissement = Carbon::parse($autorisation->dateEtablissement)->translatedFormat('d M Y');
+        $autorisation->dateNaissance = Carbon::parse($autorisation->dateNaissance)->translatedFormat('d M Y');
+        $pdf = PDF::loadView('autorisationPrePrint', array('data' =>$autorisation));
+        return $pdf->stream('teste.pdf');
     }
 }
