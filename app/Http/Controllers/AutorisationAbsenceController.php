@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AutorisationAbsence;
+use App\Models\Personnel;
 use Illuminate\Http\Request;
 
 class AutorisationAbsenceController extends Controller
@@ -14,7 +15,14 @@ class AutorisationAbsenceController extends Controller
      */
     public function index()
     {
-        //
+
+        $personnels = Personnel::all();
+        $autorisations = AutorisationAbsence::orderByDesc('autorisation_absences.created_at')
+                                ->join('personnels', 'autorisation_absences.matricule', '=', 'personnels.matricule')
+                                ->get()->values();
+
+        return view('autorisationAbsence')->with('personnels',$personnels)
+                                ->with('autorisations',$autorisations);
     }
 
     /**
@@ -81,5 +89,10 @@ class AutorisationAbsenceController extends Controller
     public function destroy(AutorisationAbsence $autorisationAbsence)
     {
         //
+    }
+
+    public function print()
+    {
+
     }
 }

@@ -22,13 +22,30 @@ class PersonnelController extends Controller
         $categories = CategoriePersonnel::all();
         $fonctions = Fonction::all();
         $echellons = Echellon::all();
-        $personnels = Personnel::orderByDesc('personnels.created_at')
+        $personnels = Personnel::orderByDesc('personnels.created_at')->where('personnels.EnService', '=', true)
                                 ->join('fonctions', 'personnels.idFonction', '=', 'fonctions.idFonction')
                                 ->join('categorie_personnels', 'personnels.idCategorieP', '=', 'categorie_personnels.idCategorieP')
                                 ->join('certificats', 'personnels.matricule', '=', 'certificats.matricule')->where('certificats.idTypeCertificat', '=', 1)
                                 ->get()->values();
 
         return view('personnel')->with('categories',$categories)
+                                ->with('fonctions',$fonctions)
+                                ->with('echellons',$echellons)
+                                ->with('personnels',$personnels);
+    }
+
+    public function index2()
+    {
+        $categories = CategoriePersonnel::all();
+        $fonctions = Fonction::all();
+        $echellons = Echellon::all();
+        $personnels = Personnel::orderByDesc('personnels.created_at')->where('personnels.EnService', '=', false)
+                                ->join('fonctions', 'personnels.idFonction', '=', 'fonctions.idFonction')
+                                ->join('categorie_personnels', 'personnels.idCategorieP', '=', 'categorie_personnels.idCategorieP')
+                                ->join('certificats', 'personnels.matricule', '=', 'certificats.matricule')->where('certificats.idTypeCertificat', '=', 1)
+                                ->get()->values();
+
+        return view('personnelHS')->with('categories',$categories)
                                 ->with('fonctions',$fonctions)
                                 ->with('echellons',$echellons)
                                 ->with('personnels',$personnels);
@@ -57,6 +74,8 @@ class PersonnelController extends Controller
             "idFonction" => "required",
             "idCategorieP" => "required",
         ]);*/
+        $id = $request->fonction;
+        $fonction = Fonction::where("idFonction", $id)->get()->values();;
 
         Personnel::create([
             "matricule" => $request->matricule,
@@ -75,7 +94,7 @@ class PersonnelController extends Controller
 
         Certificat::create([
             "fonctionPrecedente" => $request->foncP,
-            "fonctionActuelle" => $request->fonction,
+            "fonctionActuelle" => $fonction[0]->libelleFonction,
             "structurePrecedente" => $request->strucP,
             "structureActuelle" => "IBAM",
             "decision" => $request->decision,
@@ -129,10 +148,28 @@ class PersonnelController extends Controller
      */
     public function destroy(Request $request)
     {
+        //dd($request);
+
 
         $matricule = $request->matricule;
         $personnel = Personnel::where("matricule", $matricule);
-        $personnel->delete();
+        $personnel->update([
+            "EnService" => false
+        ]);
+
+        $personnel = Personnel::where("matricule", $matricule)->join('fonctions', 'personnels.idFonction', '=', 'fonctions.idFonction')->get()->values();
+        Certificat::create([
+            "fonctionPrecedente" => $personnel[0]->libelleFonction,
+            "fonctionActuelle" => $request->poste,
+            "structurePrecedente" => "IBAM",
+            "structureActuelle" => $request->affectation,
+            "decision" => $request->decision,
+            "date" => $request->dateCess,
+            "matricule" => $request->matricule,
+            "idTypeCertificat" => 2,
+
+        ]);
+
         return Redirect::route('personnel')->with('success',"Personnel mis à jour !");
 
 

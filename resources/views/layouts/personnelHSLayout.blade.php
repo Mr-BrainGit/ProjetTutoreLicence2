@@ -32,11 +32,9 @@
             <div class="card-header">
               <div class="row">
                   <div class="col-md-10" style="margin-top: 10px">
-                    <h3 class="card-title">Liste du personnel</h3>
+                    <h3 class="card-title">Liste du personnel ayant cessé service</h3>
                   </div>
-                  <div class="col-md-2">
-                    <button type="button" class="btn btn-info" data-type="ajout" data-toggle="modal" data-target="#personelmodal"><i class="fa fa-plus"></i> Ajouter</button>
-                  </div>
+
               </div>
             </div>
             <!-- /.card-header -->
@@ -90,7 +88,6 @@
                                     data-target="#personelmodal"
                                     class="btn btn-success btn-sm"><i class="fa fa-edit"></i>
                             </button>
-                            <button style="border-radius: 50%" type="button" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                         </td>
 
                     </tr>
@@ -155,7 +152,12 @@
                 <input type="hidden" id="typeCer" value="1" name="typeCer">
                 <button type="submit" class="btn btn-primary">Certificat de prise de service</button>
             </form>
-
+            <form action="{{route('printCertificat')}}" method="post">
+                @csrf
+                <input type="hidden" id="matriculeCert2" name="matricule">
+                <input type="hidden" id="typeCer" value="2" name="typeCer">
+                <button type="submit" class="btn btn-primary">Certificat de cessation de service</button>
+            </form>
         </div>
 
       </div>
@@ -276,7 +278,6 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="submit" name="envoyer" id="submit" class="btn btn-primary">Enregistrer</button>
                       </div>
                   </form>
               </div>
@@ -286,52 +287,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="cessationmodal" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Générer le certificat</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                  <form id="form" method="POST" action="{{route('personnelDelete')}}">
-                      @csrf
-                      @method('post')
 
-                      <input type="hidden" id="matricule2" name="matricule">
-                      <div class="row">
-                            <div class="form-group col-md-12">
-                              <label for="dateCess" class="col-form-label">Date de cessation de service</label>
-                              <input type="date" class="form-control" name="dateCess" id="dateCess">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="poste" class="col-form-label">Prochain poste</label>
-                                <input type="text" class="form-control" name="poste" id="poste">
-                              </div>
-                            <div class="form-group col-md-12">
-                              <label for="affectation" class="col-form-label">Lieu d'affectation (à laisser vide dans le cas d'une retraite)</label>
-                              <input type="text" class="form-control" name="affectation" id="affectation">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="decision" class="col-form-label">Décision</label>
-                                <input type="text" class="form-control" name="decision" id="decision">
-                              </div>
-
-                        </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="submit" name="envoyer" id="submit" class="btn btn-primary">Enregistrer</button>
-                      </div>
-                  </form>
-              </div>
-            </div>
-
-      </div>
-    </div>
-  </div>
 
 
 
@@ -362,7 +318,7 @@
            //Changement de la route dans l'action du formulaire
             $("#form").attr('action', "{{route('personnelSave')}}");
         } else {
-        $('.modal-title').text('Modifier les information d\'un personnel');
+        $('.modal-title').text('Détails');
         var matricule = button.data('matricule');
         var nom = button.data('nom');
         var prenom = button.data('prenom');

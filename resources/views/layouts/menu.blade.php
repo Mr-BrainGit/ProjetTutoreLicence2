@@ -192,7 +192,15 @@
                         <a href="/personnel" class="nav-link @yield('personnel')">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                              Liste du personnel
+                                Personnel en service
+                            </p>
+                          </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/personnelHS" class="nav-link @yield('personnelHS')">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Personnel
                             </p>
                           </a>
                     </li>
@@ -273,7 +281,7 @@
                     </ul>
                   </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
+                    <a href="/autorisationAB" class="nav-link @yield('autorisationAB')">
                         <p>
                             <i class="far fa-circle nav-icon"></i>
                             Autorisation absence
@@ -335,42 +343,6 @@
                 </li>
               </li>
             </ul>
-          </li>
-
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Certificats
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                    <p>
-                        <i class="far fa-circle nav-icon"></i>
-                        Prise de service <br>
-                    </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <p>
-                            <i class="far fa-circle nav-icon"></i>
-                            Cessation de service
-                        </p>
-                    </a>
-                </li>
-
-              </li>
-            </ul>
-            <li class="nav-item">
-                <a href="/" class="nav-link">
-                  <i class="nav-icon fas fa-th nav-icon"></i>
-                  <p>Signataires</p>
-                </a>
-            </li>
           </li>
 
 

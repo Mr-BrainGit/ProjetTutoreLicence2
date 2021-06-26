@@ -6,6 +6,9 @@ use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\NoteInformationController;
 use App\Http\Controllers\NoteServiceController;
+use App\Http\Controllers\AutorisationAbsenceController;
+
+use App\Models\AutorisationAbsence;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +27,11 @@ Route::get('/', function () {
 });
 
 Route::get('personnel', [PersonnelController::class, 'index'])->name("personnel");
+Route::get('personnelHS', [PersonnelController::class, 'index2'])->name("personnelHS");
 Route::post('personnel', [PersonnelController::class, 'store'])->name("personnelSave");
 Route::post('personnel/delete', [PersonnelController::class, 'destroy'])->name("personnelDelete");
 Route::post('personnel/{matricule}', [PersonnelController::class, 'update'])->name("updatePersonnel");
+
 
 Route::get('demandeur', [DemandeurController::class, 'index'])->name("demandeur");
 Route::post('demandeur', [DemandeurController::class, 'store'])->name("demandeurSave");
@@ -53,6 +58,11 @@ Route::post('autorisationP/delete', [AutorisationPrelevementController::class, '
 Route::post('autorisationP/print', [AutorisationPrelevementController::class, 'print'])->name("autorisationPrint");
 
 
+Route::get('autorisationAB', [AutorisationAbsenceController::class, 'index'])->name("autorisationAB");
+Route::post('autorisationAB', [AutorisationAbsenceController::class, 'store'])->name("autorisationABSave");
+Route::post('autorisationAB/update', [AutorisationAbsenceController::class, 'update'])->name("autorisationABUpdate");
+Route::post('autorisationAB/delete', [AutorisationAbsenceController::class, 'destroy'])->name("autorisationABDelete");
+Route::post('autorisationAB/print', [AutorisationAbsenceController::class, 'print'])->name("autorisationABPrint");
 
 
 
