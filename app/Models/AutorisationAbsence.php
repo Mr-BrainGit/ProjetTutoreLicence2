@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class AutorisationAbsence extends Model
 {
     use HasFactory;
+    protected $guarded = ['idAutorisationAb'];
 }

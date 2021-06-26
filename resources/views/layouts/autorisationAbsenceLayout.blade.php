@@ -116,7 +116,7 @@
         <div class="modal-body">
           Voulez-vous vraiment supprimer cette autorisation ?
         </div>
-        <form action="{{route('autorisationPDelete')}}" method="post">
+        <form action="{{route('autorisationABDelete')}}" method="post">
             @csrf
             <input type="hidden" id="idDel" name="idD">
             <div class="modal-footer">

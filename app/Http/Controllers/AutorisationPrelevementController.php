@@ -54,6 +54,8 @@ class AutorisationPrelevementController extends Controller
           "montantLettre" => $request->montantLettre,
           "matricule" => $request->matricule
         ]);
+        return Redirect::route('autorisationP')->with('success',"Personnel mis à jour !");
+
     }
 
     /**

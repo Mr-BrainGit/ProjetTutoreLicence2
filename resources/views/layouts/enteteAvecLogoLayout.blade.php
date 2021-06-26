@@ -54,12 +54,12 @@
                 </p><br>
                 <img class="logoUJKZ" src="{{ public_path("img/logoUniv.jpg") }}">
                 <div style="margin-top: -15px">
-                    <p>Ouagadougou le </p>
+                    <p>Ouagadougou le.................................. </p>
 
                 </div>
             </div>
             <div class="divInfo">
-                <p>
+                <p style="font-size: 13px">
                     MINISTERE DE L’ENSEIGNEMENT SUPERIEUR, <br>
                     DE LA RECHERCHE SCIENTIFIQUE
                     <br> ET DE L’INNOVATION <br>
@@ -72,7 +72,7 @@
 
                 <img class="logoIbam" src="{{ public_path("img/logoIbam.png") }}">
 
-                <p style="margin-top: -10px;">
+                <p style="margin-top: -10px; font-size: 12px">
                     Institut Burkinabè des Arts et  Métiers <br>
                     03 BP 7021 Ouagadougou 03 <br>
                     Tél. : (226) 25-35-67-31/62 <br>
