@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OccupantMaison;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class OccupantMaisonController extends Controller
 {
@@ -14,7 +15,8 @@ class OccupantMaisonController extends Controller
      */
     public function index()
     {
-        //
+        $occupants = OccupantMaison::all();
+        return view("occupantsMaison")->with('occupants',$occupants);
     }
 
     /**
@@ -35,7 +37,14 @@ class OccupantMaisonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        OccupantMaison::create([
+            "nomOccupant" => $request->nom,
+            "prenomOccupant" => $request->prenom,
+            "provenanceOccupant" => $request->prov,
+        ]);
+
+        $occupants = OccupantMaison::all();
+        return view("occupantsMaison")->with('occupants',$occupants)->with('success','Occupant ajouté !!');
     }
 
     /**
@@ -67,9 +76,16 @@ class OccupantMaisonController extends Controller
      * @param  \App\Models\OccupantMaison  $occupantMaison
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OccupantMaison $occupantMaison)
+    public function update(Request $request)
     {
-        //
+        $occupant = OccupantMaison::where("idOccupant", $request->idD);
+        $occupant->update([
+            "nomOccupant" => $request->nom,
+            "prenomOccupant" => $request->prenom,
+            "provenanceOccupant" => $request->prov,
+        ]);
+
+        return Redirect::route('occupants')->with('success',"Personnel mis à jour !");
     }
 
     /**
@@ -78,8 +94,11 @@ class OccupantMaisonController extends Controller
      * @param  \App\Models\OccupantMaison  $occupantMaison
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OccupantMaison $occupantMaison)
+    public function destroy(Request $request)
     {
-        //
+        $demandeur = OccupantMaison::where("idOccupant", $request->idD);
+        $demandeur->delete();
+
+        return Redirect::route('occupants')->with('success',"Personnel mis à jour !");
     }
 }

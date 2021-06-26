@@ -253,7 +253,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link @yield('maisonH')"">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
                         Maison d'hôte
@@ -262,15 +262,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="/demandeMH" class="nav-link @yield('MH')">
                             <p>
                                 <i class="far fa-circle nav-icon"></i>
-                                Fiche demande <br>
+                                Demande hebergement <br>
                             </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="/occupants" class="nav-link @yield('occupants')">
                             <p>
                                 <i class="far fa-circle nav-icon"></i>
                                 Occupants maison <br>
@@ -289,7 +289,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/layout/top-nav.html" class="nav-link">
+                  <a href="/autorisationPS" class="nav-link @yield('autorisationPS')">
                     <p>
                         <i class="far fa-circle nav-icon"></i>
                         Passage salle

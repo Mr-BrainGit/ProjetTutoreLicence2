@@ -10,6 +10,10 @@ use App\Http\Controllers\AutorisationAbsenceController;
 
 use App\Models\AutorisationAbsence;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AutorisationPassageSalleController;
+use App\Http\Controllers\DemandeHebergementController;
+use App\Http\Controllers\OccupantMaisonController;
+use App\Models\DemandeHebergement;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,8 +68,22 @@ Route::post('autorisationAB/update', [AutorisationAbsenceController::class, 'upd
 Route::post('autorisationAB/delete', [AutorisationAbsenceController::class, 'destroy'])->name("autorisationABDelete");
 Route::post('autorisationAB/print', [AutorisationAbsenceController::class, 'print'])->name("autorisationABPrint");
 
+Route::get('autorisationPS', [AutorisationPassageSalleController::class, 'index'])->name("autorisationPS");
+Route::post('autorisationPS', [AutorisationPassageSalleController::class, 'store'])->name("autorisationPSSave");
+Route::post('autorisationPS/update', [AutorisationPassageSalleController::class, 'update'])->name("autorisationPSUpdate");
+Route::post('autorisationPS/delete', [AutorisationPassageSalleController::class, 'destroy'])->name("autorisationPSDelete");
+Route::post('autorisationPS/print', [AutorisationPassageSalleController::class, 'print'])->name("autorisationPSPrint");
 
+Route::get('occupants', [OccupantMaisonController::class, 'index'])->name("occupants");
+Route::post('occupants', [OccupantMaisonController::class, 'store'])->name("occupantsSave");
+Route::post('occupants/update', [OccupantMaisonController::class, 'update'])->name("occupantsUpdate");
+Route::post('occupants/delete', [OccupantMaisonController::class, 'destroy'])->name("occupantsDelete");
 
+Route::get('demandeMH', [DemandeHebergementController::class, 'index'])->name("demandeMH");
+Route::post('demandeMH', [DemandeHebergementController::class, 'store'])->name("demandeMHSSave");
+Route::post('demandeMH/update', [DemandeHebergementController::class, 'update'])->name("demandeMHUpdate");
+Route::post('demandeMH/delete', [DemandeHebergementController::class, 'destroy'])->name("demandeMHDelete");
+Route::post('demandeMH/print', [DemandeHebergementController::class, 'print'])->name("demandeMHPrint");
 
 
 

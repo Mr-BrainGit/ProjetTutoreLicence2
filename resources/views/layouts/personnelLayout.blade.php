@@ -65,7 +65,7 @@
                         <td style="padding: 7px;">{{ $personnel->sexe }}</td>
                         <td style="padding: 7px;">{{ $personnel->libelleFonction }}</td>
                         <td style="padding: 7px;">
-                            <button style="border-radius: 5px" type="button" id="matCert" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#certificat-modal"  class="btn btn-success btn-sm"> Certificats</button>
+                            <button style="border-radius: 5px" type="button" id="matCert" data-matricule="{{ $personnel->matricule }} " data-toggle="modal" data-target="#certificat-modal"  class="btn btn-success btn-sm"> Documents</button>
                             <button style="border-radius: 50%" type="button"
                                     id="edit"
                                     data-type="edit"

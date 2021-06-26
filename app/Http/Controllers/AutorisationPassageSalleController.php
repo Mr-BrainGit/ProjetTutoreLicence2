@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AutorisationPassageSalle;
+use App\Models\Demandeur;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class AutorisationPassageSalleController extends Controller
 {
@@ -14,7 +18,13 @@ class AutorisationPassageSalleController extends Controller
      */
     public function index()
     {
-        //
+        $demandeurs = Demandeur::all();
+        $autorisations = AutorisationPassageSalle::orderByDesc('autorisation_passage_salles.created_at')
+                                ->join('demandeurs', 'autorisation_passage_salles.idDemandeur', '=', 'demandeurs.idDemandeur')
+                                ->get()->values();
+
+        return view('autorisationPassageSalle')->with('demandeurs',$demandeurs)
+                                ->with('autorisations',$autorisations);
     }
 
     /**
@@ -35,7 +45,13 @@ class AutorisationPassageSalleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        AutorisationPassageSalle::create([
+            "dateDemande" => $request->dateD,
+            "motif" => $request->motif,
+            "idDemandeur" => $request->demandeur,
+        ]);
+        return Redirect::route('autorisationPS')->with('success',"Personnel mis à jour !");
+
     }
 
     /**
@@ -78,8 +94,25 @@ class AutorisationPassageSalleController extends Controller
      * @param  \App\Models\AutorisationPassageSalle  $autorisationPassageSalle
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AutorisationPassageSalle $autorisationPassageSalle)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->idD;
+
+
+        $auth = AutorisationPassageSalle::where('idAutorisationPS', $id);
+        $auth->delete();
+        return Redirect::route('autorisationPS')->with('success',"Personnel mis à jour !");
+    }
+
+    public function print(Request $request)
+    {
+        $id = $request->id;
+        Carbon::setLocale('fr');
+        $autorisation = AutorisationPassageSalle::where('idAutorisationPS', $id)
+                                                ->join('demandeurs', 'autorisation_passage_salles.idDemandeur', '=', 'demandeurs.idDemandeur')
+                                                 ->first();
+        $autorisation->dateDemande = Carbon::parse($autorisation->dateDemande)->translatedFormat('d M Y');
+        $pdf = PDF::loadView('autorisationPSPrint', array('data' =>$autorisation));
+        return $pdf->stream('teste.pdf');
     }
 }
