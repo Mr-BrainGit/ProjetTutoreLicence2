@@ -44,45 +44,45 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Matricule</th>
-                        <th>Nom</th>
-                        <th>Prénom(s)</th>
-                        <th>Montant en chiffre</th>
-                        <th>Montant en lettre</th>
+                        <th>Nom occupant</th>
+                        <th>Prénom occupant</th>
+                        <th>Debut du sejour</th>
+                        <th>Fin du sejour</th>
+                        <th>Motif du sejour</th>
                         <th>Actions</th>
                     </tr>
 
                 </thead>
                 <tbody>
 
-                    @foreach ($demandes as $autorisation)
+                    @foreach ($demandes as $demande)
                     <tr>
-                        <td style="padding-top:17px;">{{ $autorisation->matricule }}</td>
-                        <td style="padding-top:17px;">{{ $autorisation->nom }}</td>
+                        <td style="padding-top:17px;">{{ $demande->nomOccupant }}</td>
+                        <td style="padding-top:17px;">{{ $demande->prenomOccupant }}</td>
 
-                        <td style="padding-top:17px;">{{ $autorisation->prenom }}</td>
-                        <td style="padding-top:17px;">{{ $autorisation->montantChiffer }}</td>
-                        <td style="padding-top:17px;">{{ $autorisation->montantLettre }}</td>
+                        <td style="padding-top:17px;">{{ $demande->dateDebutSejour }}</td>
+                        <td style="padding-top:17px;">{{ $demande->dateFinSejour }}</td>
+                        <td style="padding-top:17px;">{{ $demande->motifSejour }}</td>
                         <td>
-                            <form action="{{ route('autorisationPrint') }}" method="post">
+                            <form action="{{ route('demandeMHPrint') }}" method="post">
                                 @csrf
 
-                            <button type="button"
+                           <!-- <button type="button"
                                     id="edit"
                                     data-type="edit"
-                                    data-id="{{ $autorisation->idAutorisationP }} "
-                                    data-matri="{{ $autorisation->matricule }}"
-                                    data-montanc="{{ $autorisation->montantChiffer }}"
-                                    data-montantl="{{ $autorisation->montantLettre }}"
-                                    data-dateps="{{ $autorisation->datePriseEffet }}"
-                                    data-datee="{{ $autorisation->dateEtablissement }}"
+                                    data-id="{{ $demande->idOccupant }} "
+                                    data-dated="{{ $demande->dateDemande }}"
+                                    data-nomr="{{ $demande->nomRequerant }}"
+                                    data-prenomr="{{ $demande->prenomRequerqnt }}"
+                                    data-dateps="{{ $demande->datePriseEffet }}"
+                                    data-datee="{{ $demande->dateEtablissement }}"
                                     data-toggle="modal"
                                     data-target="#personelmodal"
                                     class="btn btn-success btn-sm"><i class="fa fa-edit"></i>
-                            </button>
-                            <button type="submit" data-id="{{ $autorisation->idAutorisationP }} " class="btn btn-success btn-sm"><i class="fa fa-print"></i></button>
-                            <button type="button" data-id="{{ $autorisation->idAutorisationP }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                            <input type="hidden" name="id" value="{{ $autorisation->idAutorisationP }} ">
+                            </button> -->
+                            <button type="submit" data-id="{{ $demande->idDemandeH }} " class="btn btn-success btn-sm"><i class="fa fa-print"></i></button>
+                            <button type="button" data-id="{{ $demande->idDemandeH }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            <input type="hidden" name="id" value="{{ $demande->idDemandeH }} ">
                             </form>
                         </td>
                       </tr>
@@ -115,7 +115,7 @@
         <div class="modal-body">
           Voulez-vous vraiment supprimer cette autorisation ?
         </div>
-        <form action="{{route('autorisationPDelete')}}" method="post">
+        <form action="{{route('demandeMHDelete')}}" method="post">
             @csrf
             <input type="hidden" id="idDel" name="idD">
             <div class="modal-footer">
@@ -143,8 +143,8 @@
                       <div class="row">
                             <input type="hidden" id="id" name="id">
                             <div style="margin-top: 5px" class="form-group col-md-8">
-                                <label for="fonction">Occupant</label>
-                                <select id="matricule" name="matricule" class="form-control">
+                                <label for="idO">Occupant</label>
+                                <select id="idO" name="idO" class="form-control">
                                   <option selected></option>
                                   @foreach ($occupants as $personnel)
                                         <option value="{{ $personnel->idOccupant }}"> {{ $personnel->nomOccupant }} {{ $personnel->prenomOccupant }} </option>
@@ -180,17 +180,17 @@
                                 <input type="date" class="form-control" name="dateFS" id="dateFS">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="dateFS" class="col-form-label">Motif</label><br>
+                                <label for="motif" class="col-form-label">Motif</label><br>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="missionE" id="inlineRadio1" value="option1">
+                                    <input class="form-check-input" type="radio" name="motif" id="inlineRadio1" value="MS">
                                     <label class="form-check-label" for="inlineRadio1">Mission d'enseignement</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <input class="form-check-input" type="radio" name="motif" id="inlineRadio2" value="PJ">
                                     <label class="form-check-label" for="inlineRadio2">Participation jury</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                    <input class="form-check-input" type="radio" name="motif" id="inlineRadio3" value="AM">
                                     <label class="form-check-label" for="inlineRadio3">Autre motif</label>
                                   </div>
                             </div>
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="dateSou" class="col-form-label">Date de soutenance</label>
-                                    <input type="text" class="form-control" name="dateSou" id="dateSou">
+                                    <input type="date" class="form-control" name="dateSou" id="dateSou">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="theme" class="col-form-label">Thème</label>
@@ -262,33 +262,24 @@
         var button = $(event.relatedTarget);
         if (button.data('type') === "ajout") {
             $('.modal-title').text('Créer un personnel');
-            $('#matricule').val('');
+            $('#idO').val('');
             $('#dateE').val('');
             $('#dateps').val('');
             $('#montantChiffre').val('');
         $('#montantLettre').val('');
 
-            $("#form").attr('action', "{{route('autorisationPSave')}}");
+            $("#form").attr('action', "{{route('demandeMHSSave')}}");
 
             $('#update-btn').hide();
             $('#save-btn').show();
         } else {
         $('.modal-title').text('Modifier les information d\'un personnel');
         var id = button.data('id');
-        var matricule = button.data('matri');
-        var montantC = button.data('montanc');
-        var montantL = button.data('montantl');
-        var dateEtablissement = button.data('datee');
-        var datePriseEffet = button.data('dateps');
-        var id = button.data('id');
 
 
-        $('#matricule').val(matricule);
-        $('#dateE').val(dateEtablissement);
-        $('#dateps').val(datePriseEffet);
-        $('#montantChiffre').val(montantC);
-        $('#montantLettre').val(montantL);
-        $('#id').val(id);
+
+        $('#idO').val(id);
+
 
 
         $("#form").attr('action', "{{route('autorisationPUpdate')}}");
