@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Resources\fonctionResource;
 use App\Models\Fonction;
+use App\Models\TypeFonction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class FonctionController extends Controller
 {
@@ -15,6 +17,12 @@ class FonctionController extends Controller
     public function index()
     {
         //
+        $typefonctions = TypeFonction::all();
+        $fonctions = Fonction::orderByDesc('fonctions.created_at')
+                                ->join('type_fonctions', 'fonctions.idTypeFonction', '=', 'type_fonctions.idTypeFonction')
+                                ->get()->values();
+        return view('fonction')->with('typefonctions',$typefonctions)
+                               ->with('fonctions',$fonctions);
     }
 
     /**
@@ -36,6 +44,12 @@ class FonctionController extends Controller
     public function store(Request $request)
     {
         //
+         fonction::create([
+            "libelleFonction" => $request->libelleFonction,
+            "idTypeFonction" => $request->idTypeFonction,
+        ]);
+
+        return Redirect::route('fonction')->with('success',"Fonciont mis à jour !");
     }
 
     /**
@@ -70,6 +84,13 @@ class FonctionController extends Controller
     public function update(Request $request, Fonction $fonction)
     {
         //
+        $oldidFonction = $request->oldidFonction;
+        $fonction = fonction::where("idFonction", $oldidFonction);
+        $fonction->update([
+            "libelleFonction" => $request->libelleFonction,
+            "idTypeFonction" => $request->idTypeFonction,
+        ]);
+        return Redirect::route('fonction')->with('success',"Fonciont mis à jour !");
     }
 
     /**
@@ -78,8 +99,12 @@ class FonctionController extends Controller
      * @param  \App\Models\Fonction  $fonction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fonction $fonction)
+    public function destroy(Request $request)
     {
         //
+        $idFonction = $request->idFonction;
+        $fonction = fonction::where("idFonction", $idFonction);
+        $fonction->delete();
+        return Redirect::route('fonction')->with('success',"Fonction mis à jour !");
     }
 }

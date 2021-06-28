@@ -206,7 +206,7 @@
                     </li>
                     <li class="nav-item">
 
-                        <a href="/personnel" class="nav-link">
+                        <a href="/fonction" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                               Fonctions du personnel

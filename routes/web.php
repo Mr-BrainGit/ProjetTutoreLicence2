@@ -4,16 +4,15 @@ use App\Http\Controllers\AutorisationPrelevementController;
 use App\Http\Controllers\CertificatController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\PersonnelController;
-use App\Http\Controllers\NoteInformationController;
-use App\Http\Controllers\NoteServiceController;
-use App\Http\Controllers\AutorisationAbsenceController;
-
-use App\Models\AutorisationAbsence;
+use App\Http\Controllers\FonctionController;
+use App\Models\Personnel;
+use App\Models\Fonction;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutorisationPassageSalleController;
 use App\Http\Controllers\DemandeHebergementController;
 use App\Http\Controllers\OccupantMaisonController;
 use App\Http\Controllers\SignataireController;
+use App\Http\Controllers\TypeFonctionController;
 use App\Models\DemandeHebergement;
 
 /*
@@ -85,6 +84,11 @@ Route::post('demandeMH', [DemandeHebergementController::class, 'store'])->name("
 Route::post('demandeMH/update', [DemandeHebergementController::class, 'update'])->name("demandeMHUpdate");
 Route::post('demandeMH/delete', [DemandeHebergementController::class, 'destroy'])->name("demandeMHDelete");
 Route::post('demandeMH/print', [DemandeHebergementController::class, 'print'])->name("demandeMHPrint");
+
+Route::get('fonction', [FonctionController::class, 'index'])->name("fonction");
+Route::post('fonction', [FonctionController::class, 'store'])->name("fonctionSave");
+Route::post('fonction/delete', [FonctionController::class, 'destroy'])->name("fonctionDelete");
+Route::post('fonction/{idFonction}', [FonctionController::class, 'update'])->name("updateFonction");
 
 
 Route::get('signataire', [SignataireController::class, 'index'])->name("signataire");

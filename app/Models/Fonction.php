@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Fonction extends Model
 {
     use HasFactory;
-    //protected $guarded = ['idFonctionSignataire'];
+    protected $guarded = [];
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TypeFonction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class TypeFonctionController extends Controller
 {
@@ -15,6 +16,7 @@ class TypeFonctionController extends Controller
     public function index()
     {
         //
+        $typefonctions = TypeFonction::all();
     }
 
     /**
