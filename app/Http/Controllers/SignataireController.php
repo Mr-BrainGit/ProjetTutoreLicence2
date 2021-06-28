@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Signataire;
+use App\Models\Fonction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class SignataireController extends Controller
 {
@@ -14,7 +16,15 @@ class SignataireController extends Controller
      */
     public function index()
     {
-        //
+        
+        
+        $fonctions = Fonction::all();
+        $signataires = Signataire::orderByDesc('signataires.created_at')
+                                ->join('fonctions', 'signataires.idFonctionSignataire', '=', 'fonctions.idFonction')
+                                ->get()->values();
+
+        return view("signataire")->with('signataires',$signataires)
+                                 ->with('fonctions',$fonctions);
     }
 
     /**
@@ -24,7 +34,7 @@ class SignataireController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +45,16 @@ class SignataireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+         Signataire::create([
+            "idSignataire" => $request->idSignataire,
+            "nomCompletSignataire" => $request->nomCompletSignataire,
+            "distinctionSignataire" => $request->distinctionSignataire,
+            "idFonctionSignataire" => $request->idFonction,
+        ]);
+
+        $signataires = Signataire::all();
+        return Redirect::route('signataire')->with('success',"Signataire mis à jour !");
     }
 
     /**
@@ -69,17 +88,30 @@ class SignataireController extends Controller
      */
     public function update(Request $request, Signataire $signataire)
     {
-        //
+        // dd($request->signataire);
+            $oldidSignataire = $request->OldidSignataire;
+            $signataire = Signataire::where("idSignataire", $oldidSignataire);
+            $signataire->update([
+            
+            "nomCompletSignataire" => $request->nomCompletSignataire,
+            "distinctionSignataire" => $request->distinctionSignataire,
+            "idFonctionSignataire" => $request->idFonctionSignataire,
+        ]);
+        return Redirect::route('signataire')->with('success',"Signataire mis à jour !");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Signataire  $signataire
+     * @param  \App\Models\Signataire  $signataires
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Signataire $signataire)
+    public function destroy(Request $request)
     {
-        //
+        //dd($request->signataires);
+        $idSignataire = $request->idSignataire;
+        $signataires = Signataire::where("idSignataire", $idSignataire);
+        $signataires->delete();
+        return Redirect::route('signataire')->with('success',"Signataire mis à jour !");
     }
 }
