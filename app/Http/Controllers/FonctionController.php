@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Resources\fonctionResource;
 use App\Models\Fonction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class FonctionController extends Controller
 {
@@ -15,6 +16,8 @@ class FonctionController extends Controller
     public function index()
     {
         //
+        $fonction = fonction::all();
+        return view('fonction')->with('fonction',$fonction);
     }
 
     /**
@@ -36,6 +39,12 @@ class FonctionController extends Controller
     public function store(Request $request)
     {
         //
+         fonction::create([
+            "libelleFonction" => $request->libelleFonction,
+            "idTypeFonction" => $request->idTypeFonction,
+        ]);
+
+        return Redirect::route('fonction')->with('success',"Fonciont mis à jour !");
     }
 
     /**
@@ -70,6 +79,13 @@ class FonctionController extends Controller
     public function update(Request $request, Fonction $fonction)
     {
         //
+        $oldidFonction = $request->oldidFonction;
+        $fonction = fonction::where("idFonction", $oldidFonction);
+        $fonction->update([
+            "libelleFonction" => $request->libelleFonction,
+            "idTypeFonction" => $request->idTypeFonction,
+        ]);
+        return Redirect::route('fonction')->with('success',"Fonciont mis à jour !");
     }
 
     /**
@@ -81,5 +97,9 @@ class FonctionController extends Controller
     public function destroy(Fonction $fonction)
     {
         //
+        $idFonction = $request->idFonction;
+        $fonction = fonction::where("idFonction", $idFonction);
+        $personnel->delete();
+        return Redirect::route('fonction')->with('success',"Fonction mis à jour !");
     }
 }
