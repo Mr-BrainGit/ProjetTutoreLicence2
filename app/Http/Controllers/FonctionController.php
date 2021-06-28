@@ -16,8 +16,12 @@ class FonctionController extends Controller
     public function index()
     {
         //
-        $fonction = fonction::all();
-        return view('fonction')->with('fonction',$fonction);
+        $typefonctions = TypeFonction::all();
+        $fonctions = Fonction::orderByDesc('fonctions.created_at')
+                                ->join('typefonctions', 'fonctions.idTypeFonction', '=', 'typefonctions.idTypeFonction') 
+                                ->get()->values();
+        return view('fonction')->with('typefonctions',$typefonctions)
+                               ->with('fonctions',$fonctions);
     }
 
     /**

@@ -131,19 +131,16 @@
                       <input type="hidden" id="OldidFonction" name="OldidFonction">
                       <div class="row">
                             <div class="form-group col-md-4">
-                              <label for="idFonction" class="col-form-label">Identiant</label>
-                              <input type="text" class="form-control" name="idFonction" id="idFonction">
-                            </div>
-                            <div class="form-group col-md-4">
                               <label for="nom" class="col-form-label">Fonction</label>
                               <input type="text" class="form-control" name="libelleFonction" id="libelleFonction">
                             </div>
                             <div class="form-group col-md-4">
                               <label for="prenom" class="col-form-label">type de fonctions</label>
                               <select id="idTypeFonction" name="idTypeFonction" class="form-control">
-                              <option value="1">Enseignant</option>
-                              <option value="2">scolarite</option>
-                              <option value="3">Autre</option>
+                                <option selected>Choose...</option>
+                                @foreach ($typefonctions as $typefonction)
+                                      <option value="{{ $typefonction->idTypeFonction }}"> {{ $typefonction->libelleTypeFonction }} </option>
+                                @endforeach
                               </select>
                             </div>
                         </div>

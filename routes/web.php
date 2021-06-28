@@ -38,6 +38,7 @@ Route::post('fonction', [FonctionController::class, 'store'])->name("fonctionSav
 Route::post('fonction/delete', [FonctionController::class, 'destroy'])->name("fonctionDelete");
 Route::post('fonction/{idFonction}', [FonctionController::class, 'update'])->name("updateFonction");
 
-
-
-
+Route::get('typefonction', [TypeFonctionController::class, 'index'])->name("typefonction");
+Route::post('typefonction', [TypeFonctionController::class, 'store'])->name("typefonctionSave");
+Route::post('typefonction/delete', [TypeFonctionController::class, 'destroy'])->name("typefonctionDelete");
+Route::post('typefonction/{idTypeFonction}', [TypeFonctionController::class, 'update'])->name("updateTypeFonction");
