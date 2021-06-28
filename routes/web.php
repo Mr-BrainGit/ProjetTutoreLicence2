@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutorisationPassageSalleController;
 use App\Http\Controllers\DemandeHebergementController;
 use App\Http\Controllers\OccupantMaisonController;
+use App\Http\Controllers\SignataireController;
 use App\Models\DemandeHebergement;
 
 /*
@@ -86,4 +87,7 @@ Route::post('demandeMH/delete', [DemandeHebergementController::class, 'destroy']
 Route::post('demandeMH/print', [DemandeHebergementController::class, 'print'])->name("demandeMHPrint");
 
 
-
+Route::get('signataire', [SignataireController::class, 'index'])->name("signataire");
+Route::post('signataire', [SignataireController::class, 'store'])->name("signataireSave");
+Route::post('signataire/delete', [SignataireController::class, 'destroy'])->name("signataireDelete");
+Route::post('signataire/{idSignataire}', [SignataireController::class, 'update'])->name("updateSignataire");

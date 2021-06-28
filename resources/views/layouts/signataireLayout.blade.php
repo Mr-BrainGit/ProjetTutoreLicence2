@@ -62,15 +62,15 @@
                             <button type="button"
                                     id="edit"
                                     data-type="edit"
-                                    data-idSignataire="{{ $signataire->idSignataire }} "
-                                    data-nomCompletSignataire="{{ $signataire->nomCompletSignataire}}"
-                                    data-distinctionSignataire="{{ $signataire->distinctionSignataire }}"
-                                    data-idFonctionSignataire="{{ $signataire->idFonctionSignataire }}"
+                                    data-idsignataire="{{ $signataire->idSignataire }} "
+                                    data-nomsompletsignataire="{{ $signataire->nomCompletSignataire}}"
+                                    data-distinctionsignataire="{{ $signataire->distinctionSignataire }}"
+                                    data-idfonction="{{ $signataire->idFonctionSignataire }}"
                                     data-toggle="modal"
                                     data-target="#signatairemodal"
                                     class="btn btn-success btn-sm"><i class="fa fa-edit"></i>
                             </button>
-                            <button type="button" data-idSignataire="{{ $signataire->idSignataire }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            <button type="button" data-idsignataire="{{ $signataire->idSignataire }} " data-toggle="modal" data-target="#confirm-modal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                         </td>
                       </tr>
                     @endforeach
@@ -135,7 +135,7 @@
                               <label for="nom" class="col-form-label">Nom</label>
                               <input type="text" class="form-control" name="nomCompletSignataire" id="nomCompletSignataire">
                             </div>
-                            
+
                     </div>
                     <div class="row">
                       <div class="form-group col-md-12">
@@ -147,16 +147,16 @@
                         <div class="form-group col-md-12">
                           <label for="Fonction Signataire" class="col-form-label">Fonction du Signataire</label>
                           <select id="idFonction" name="idFonction" class="form-control">
-                            <option >Choose...</option>
+                            <option >Choisir...</option>
                             @foreach ($fonctions as $fonction)
                                   <option value="{{ $fonction->idFonction }}"> {{ $fonction->libelleFonction }} </option>
                             @endforeach
                           </select>
-                         
+
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" name="envoyer" id="submit" class="btn btn-primary">Send message</button>
@@ -180,31 +180,31 @@
         var button = $(event.relatedTarget);
         if (button.data('type') === "ajout") {
             $('.modal-title').text('Créer un signataire');
-           
+
             $('#nomCompletSignataire').val('');
             $('#distinctionSignataire').val('');
-            $('#idFonctionSignataire').val('');
-            
+            $('#idFonction').val('');
+
 
            //Changement de la route dans l'action du formulaire
             $("#form").attr('action', "{{route('signataireSave')}}");
         } else {
         $('.modal-title').text('Modifier les information d\'un signataire');
-        var idSignataire = button.data('idSignataire');
-        var nomCompletSignataire = button.data('nomCompletSignataire');
-        var distinctionSignataire = button.data('distinctionSignataire');
-        var idFonctionSignataire = button.data('idFonctionSignataire');
-        
+        var idSignataire = button.data('idsignataire');
+        var nomCompletSignataire = button.data('nomsompletsignataire');
+        var distinctionSignataire = button.data('distinctionsignataire');
+        var idFonctionSignataire = button.data('idfonction');
+
 
         $('#idSignataire').val(idSignataire);
         $('#OldidSignataire').val(idSignataire);
         $('#nomCompletSignataire').val(nomCompletSignataire);
         $('#distinctionSignataire').val(distinctionSignataire);
-        $('#idFonctionSignataire').val(idFonctionSignataire);
+        $('#idFonction').val(idFonctionSignataire);
 
          $('#save-btn').hide();
         $('#update-btn').show();
-        
+
         //Changement de la route dans l'action du formulaire
         $("#form").attr('action', "{{route('updateSignataire', " + idSignataire + ")}}");
       }
@@ -215,15 +215,15 @@
     //Fonction permettant d'ouvrir le modal de confirmation pour la suppression
     $('#confirm-modal').on('show.bs.modal', function(event) {
       var button = $(event.relatedTarget);
-      var id = button.data('idSignataire');
+      var id = button.data('idsignataire');
       $('.modal-title').text('Confirmation');
       $('#idSignataire').val(id);
     })
-    
+
     });
 
-    
-    //Fonction de validation des champs du formulaire à adapter en fonction des 
+
+    //Fonction de validation des champs du formulaire à adapter en fonction des
     //champs du formulaire
     $(function(){
         $('#form').validate({
@@ -235,10 +235,10 @@
         distinctionSignataire: {
             required: true
         },
-        idFonctionSignataire: {
+        idFonction: {
             required: true
         },
-       
+
         },
         messages: {
             nomCompletSignataire: {
@@ -247,11 +247,11 @@
             distinctionSignataire: {
                 required: "La distinction est requis !",
             },
-            idFonctionSignataire: {
-                required: "L'id Fonction Signataire est requis !",
+            idFonction: {
+                required: "La Fonction Signataire est requis !",
             },
-            
-           
+
+
         },
         errorElement: 'span',
         errorPlacement: function(error, element) {
@@ -268,5 +268,5 @@
         });
     })
 
-   
+
 </script>

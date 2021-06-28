@@ -16,8 +16,8 @@ class SignataireController extends Controller
      */
     public function index()
     {
-        
-        
+
+
         $fonctions = Fonction::all();
         $signataires = Signataire::orderByDesc('signataires.created_at')
                                 ->join('fonctions', 'signataires.idFonctionSignataire', '=', 'fonctions.idFonction')
@@ -34,7 +34,7 @@ class SignataireController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -45,15 +45,13 @@ class SignataireController extends Controller
      */
     public function store(Request $request)
     {
-        
+
          Signataire::create([
-            "idSignataire" => $request->idSignataire,
             "nomCompletSignataire" => $request->nomCompletSignataire,
             "distinctionSignataire" => $request->distinctionSignataire,
             "idFonctionSignataire" => $request->idFonction,
         ]);
 
-        $signataires = Signataire::all();
         return Redirect::route('signataire')->with('success',"Signataire mis à jour !");
     }
 
@@ -92,10 +90,9 @@ class SignataireController extends Controller
             $oldidSignataire = $request->OldidSignataire;
             $signataire = Signataire::where("idSignataire", $oldidSignataire);
             $signataire->update([
-            
-            "nomCompletSignataire" => $request->nomCompletSignataire,
-            "distinctionSignataire" => $request->distinctionSignataire,
-            "idFonctionSignataire" => $request->idFonctionSignataire,
+                "nomCompletSignataire" => $request->nomCompletSignataire,
+                "distinctionSignataire" => $request->distinctionSignataire,
+                "idFonctionSignataire" => $request->idFonction,
         ]);
         return Redirect::route('signataire')->with('success',"Signataire mis à jour !");
     }

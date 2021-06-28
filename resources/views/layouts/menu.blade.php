@@ -346,7 +346,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link @yield('config')">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Configurations
@@ -368,6 +368,14 @@
                         <i class="far fa-circle nav-icon"></i>
                         Types de certificat <br>
                     </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/signataire" class="nav-link @yield('signataire')">
+                        <p>
+                            <i class="far fa-circle nav-icon"></i>
+                            Signataires
+                        </p>
                     </a>
                 </li>
                 <li class="nav-item">
