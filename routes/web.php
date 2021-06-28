@@ -3,6 +3,7 @@
 use App\Http\Controllers\CertificatController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\PersonnelController;
+use App\Http\Controllers\SignataireController;
 use App\Models\Personnel;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,10 @@ Route::post('demande/{id}', [DemandeurController::class, 'update'])->name("updat
 Route::get('certificatPrint', [CertificatController::class, 'printCertificat'])->name("printCertificat");
 
 
+Route::get('signataire', [SignataireController::class, 'index'])->name("signataire");
+Route::post('signataire', [SignataireController::class, 'store'])->name("signataireSave");
+Route::post('signataire/delete', [SignataireController::class, 'destroy'])->name("signataireDelete");
+Route::post('signataire/{idSignataire}', [SignataireController::class, 'update'])->name("updateSignataire");
 
 
 

@@ -366,7 +366,7 @@
               </li>
             </ul>
             <li class="nav-item">
-                <a href="/" class="nav-link">
+                <a href="/signataire" class="nav-link @yield('signataire')">
                   <i class="nav-icon fas fa-th nav-icon"></i>
                   <p>Signataires</p>
                 </a>
